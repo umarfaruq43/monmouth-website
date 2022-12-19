@@ -185,36 +185,31 @@ const ResetPassword = () => {
                                 </FormErrorMessage>
                             </FormControl>
 
-                            <Stack spacing={8}>
-                                <Stack
-                                    direction={{ base: "row", sm: "row" }}
-                                    align={"start"}
-                                    justify={"space-between"}
-                                >
-                                    <Checkbox size="sm">Remember me</Checkbox>
-                                    <Link
-                                        as={NextLink}
-                                        color={"brand.primary"}
-                                        fontSize="14px"
-                                        fontWeight={"500"}
-                                        href="/auth/forget_password"
-                                    >
-                                        Forgot password?
-                                    </Link>
-                                </Stack>
+                            <Flex flexDir={"column"} mt="44px">
                                 <Button
                                     bg="brand.primary"
                                     _hover={{ bg: "brand.primary" }}
                                     _active={{ bg: "brand.primary" }}
                                     color="brand.white"
-                                    isLoading={isSubmitting}
+                                    //     isLoading={isSubmitting}
                                     type="submit"
                                     //     fontSize={"20px"}
                                     py="16px"
                                 >
-                                    Sign In
+                                    Next
                                 </Button>
-                            </Stack>
+                                <Box textAlign={"center"} mt="30px">
+                                    <Link
+                                        as={NextLink}
+                                        href="/auth/login"
+                                        color="brand.primary"
+                                        fontSize={"14px"}
+                                        _hover={{ textDecor: "none" }}
+                                    >
+                                        Return to Sign In
+                                    </Link>
+                                </Box>
+                            </Flex>
                         </form>
                     </Stack>
                 </Box>
