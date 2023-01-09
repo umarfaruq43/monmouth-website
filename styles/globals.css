@@ -1,11 +1,25 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap");
+/* FOnt face for Sofia pro  */
+@font-face {
+    font-family: "Sofia-Pro";
+    src: url("/font/sofiapro-light.otf");
+    font-weight: 400, 500, 600, 700, 900;
+    font-style: normal;
+}
 
+.sofia {
+    font-family: Sofia-Pro, sans-serif;
+}
+.raleway {
+    font-family: "Raleway", sans-serif;
+}
 
 * {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    font-family: 'Raleway', sans-serif;
+    font-family: "Raleway", sans-serif;
+    font-style: normal;
 }
 
 html,
@@ -14,9 +28,29 @@ body {
     overflow-x: hidden;
 }
 
-
 a {
     color: inherit;
     text-decoration: none;
 }
 
+input {
+    font-family: Sofia-Pro, sans-serif !important;
+}
+
+/* Tables  */
+
+.tab th:nth-child(2) {
+    text-align: left;
+}
+.tab td:nth-child(3) {
+    text-align: center;
+}
+
+.slantBorder {
+    border-top-right-radius: 30px 40px;
+    border-bottom-right-radius: 0px 0px;
+}
+
+table * {
+    font-family: Sofia-Pro, sans-serif !important;
+}

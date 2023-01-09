@@ -21,9 +21,10 @@ import FormScreen from "../../Layout/FormScreen";
 import InputForm from "../InputForm";
 import { useAuthContext } from "../../Contexts/AuthContext";
 import { PinInput, PinInputField } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Verify = () => {
+    const [userEmail, setUserEmail] = useState(null);
     const {
         register,
         setError,
@@ -38,6 +39,11 @@ const Verify = () => {
         e.preventDefault();
         console.log(pin);
     };
+
+    useEffect(() => {
+        const user_email = localStorage.getItem("reset_email");
+        setUserEmail(user_email);
+    }, []);
     return (
         <Box
             bgImage="/bgParttern.svg"
@@ -64,8 +70,8 @@ const Verify = () => {
                         >
                             Enter the 4 digit code you receive at
                         </Text>
-                        <Text color="brand.black" textAlign="center">
-                            almubaarak.dev@gmail.com
+                        <Text color="brand.black" textAlign="center" noOfLines={2}>
+                            {userEmail && userEmail}
                         </Text>
                     </Box>
                     <Stack spacing={2} mt="34px">

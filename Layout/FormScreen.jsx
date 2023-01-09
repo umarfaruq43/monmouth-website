@@ -19,6 +19,7 @@ import React from "react";
 import ToastAlert from "../components/Toast";
 import { useToastContext } from "../Contexts/ToastAlert";
 // import InputForm from "../components/InputForm";
+import NextLink from "next/link";
 
 const FormScreen = ({ children, ...prop }) => {
     const { toastType } = useToastContext();
@@ -30,12 +31,14 @@ const FormScreen = ({ children, ...prop }) => {
             justify={"center"}
         >
             <Box mx={"auto"} py={[12]} px={["2", null, 8]} {...prop} w="100%">
-                <Image
-                    src="/Logo.svg"
-                    alt="momentum logo"
-                    mx="auto"
-                    mb="40px"
-                />
+                <Link href="/" as={NextLink}>
+                    <Image
+                        src="/Logo.svg"
+                        alt="momentum logo"
+                        mx="auto"
+                        mb="40px"
+                    />
+                </Link>
                 <ToastAlert />
                 <Box
                     rounded={"lg"}
