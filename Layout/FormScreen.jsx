@@ -16,16 +16,15 @@ import {
 } from "@chakra-ui/react";
 
 import React from "react";
-import ToastAlert from "../components/Toast";
-import { useToastContext } from "../Contexts/ToastAlert";
+
+// import { useToastContext } from "../Contexts/ToastAlert";
 // import InputForm from "../components/InputForm";
 import NextLink from "next/link";
 
 const FormScreen = ({ children, ...prop }) => {
-    const { toastType } = useToastContext();
     return (
         <Flex
-            as={ChakraComponent}
+            
             minH={"100vh"}
             align={"center"}
             justify={"center"}
@@ -39,7 +38,7 @@ const FormScreen = ({ children, ...prop }) => {
                         mb="40px"
                     />
                 </Link>
-                <ToastAlert />
+
                 <Box
                     rounded={"lg"}
                     boxShadow="0px 4px 40px 4px rgba(0, 0, 0, 0.04)"
