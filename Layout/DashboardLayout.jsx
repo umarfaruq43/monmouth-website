@@ -36,17 +36,19 @@ import {
     FiMenu,
     FiBell,
     FiChevronDown,
+    FiShoppingBag,
 } from "react-icons/fi";
 import { FaEnvelopeOpen, FaIdCardAlt } from "react-icons/fa";
 import { IconType } from "react-icons";
 import { ReactText } from "react";
 import { RiSearchLine } from "react-icons/ri";
+import { TbDiscount2 } from "react-icons/tb";
 
 const LinkItems = [
     { name: "Dashboard", icon: FaEnvelopeOpen, active: "/" },
     { name: "Cards", icon: FaIdCardAlt, active: "/card" },
-    { name: "Purchases", icon: FiCompass, active: "/purchase" },
-    { name: "Offers", icon: FiCompass, active: "/offers" },
+    { name: "Purchases", icon: FiShoppingBag, active: "/purchase" },
+    { name: "Offers", icon: TbDiscount2, active: "/offers" },
     { name: "Analytics", icon: FiStar, active: "/analytics" },
     { name: "Settings", icon: FiSettings, active: "/settings" },
     { name: "Logout", icon: FiStar, active: "/logout" },

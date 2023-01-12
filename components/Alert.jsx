@@ -43,6 +43,7 @@ export const CustomToast = () => {
                                 // fontSize={[ "sm" : "lg"]}
                                 color="success_500"
                                 mb="1"
+                                zIndex={"overlay"}
                             >
                                 {title}
                             </Text>
