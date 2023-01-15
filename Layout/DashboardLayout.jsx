@@ -43,13 +43,15 @@ import { IconType } from "react-icons";
 import { ReactText } from "react";
 import { RiSearchLine } from "react-icons/ri";
 import { TbDiscount2 } from "react-icons/tb";
+import { MdNoteAlt } from "react-icons/md";
+import { NextLink } from "next/link";
 
 const LinkItems = [
     { name: "Dashboard", icon: FaEnvelopeOpen, active: "/" },
     { name: "Cards", icon: FaIdCardAlt, active: "/card" },
     { name: "Purchases", icon: FiShoppingBag, active: "/purchase" },
     { name: "Offers", icon: TbDiscount2, active: "/offers" },
-    { name: "Analytics", icon: FiStar, active: "/analytics" },
+    { name: "Analytics", icon: MdNoteAlt, active: "/analytics" },
     { name: "Settings", icon: FiSettings, active: "/settings" },
     { name: "Logout", icon: FiStar, active: "/logout" },
 ];
@@ -153,9 +155,11 @@ const NavItem = ({ icon, children, link, passedActive, ...rest }) => {
 
     return (
         <Link
+            as={NextLink}
             href={link.active}
             style={{ textDecoration: "none" }}
             _focus={{ boxShadow: "none" }}
+            fontSize="16px"
         >
             <Flex
                 align="center"
@@ -182,15 +186,17 @@ const NavItem = ({ icon, children, link, passedActive, ...rest }) => {
                         ? "brand.light_1"
                         : "brand.white"
                 }
+                fontWeight={link.active !== passedActive ? "500" : "600"}
             >
                 {icon && (
                     <Icon
                         mr="4"
-                        fontSize="16"
+                        fontSize="20px"
                         _groupHover={{
                             color: "brand.primary",
                         }}
                         as={icon}
+                        
                     />
                 )}
 

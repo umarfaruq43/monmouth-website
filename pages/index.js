@@ -12,7 +12,8 @@ const Home = () => {
     const { user } = useAuthContext();
 
     return (
-        <Layout>
+        <Layout> 
+        
             <Dashboard />
         </Layout>
     );

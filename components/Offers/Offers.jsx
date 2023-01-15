@@ -17,6 +17,12 @@ import OfferDetails from "./OfferDetails";
 const Offers = () => {
     const [filter, setFilter] = useState("All Offers");
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const allOffer = obj;
+    const accepted = obj.filter((item) => item.status === "accepted");
+    const rejected = obj.filter((item) => item.status === "rejected");
+    const waiting = obj.filter((item) => item.status === "waiting");
+
     return (
         <Box>
             <Flex align="center" mb="24px" justify="space-between">
@@ -54,35 +60,27 @@ const Offers = () => {
                                 <MenuList maxW="210px">
                                     <MenuItem
                                         minH="48px"
-                                        onClick={() =>
-                                            setFilter("All Purchases")
-                                        }
+                                        onClick={() => setFilter("All Offers")}
                                     >
                                         All Offers
                                     </MenuItem>
                                     <MenuItem
                                         minH="40px"
-                                        onClick={() =>
-                                            setFilter("Paid & Shipped")
-                                        }
+                                        onClick={() => setFilter("Accepted")}
                                     >
                                         Accepted
                                     </MenuItem>
 
                                     <MenuItem
                                         minH="40px"
-                                        onClick={() =>
-                                            setFilter(
-                                                "Paid & Awaiting Shipment"
-                                            )
-                                        }
+                                        onClick={() => setFilter("Countered")}
                                     >
                                         Countered
                                     </MenuItem>
 
                                     <MenuItem
                                         minH="40px"
-                                        onClick={() => setFilter("Unpaid")}
+                                        onClick={() => setFilter("Rejected")}
                                     >
                                         Rejected
                                     </MenuItem>
@@ -90,7 +88,7 @@ const Offers = () => {
                                     <MenuItem
                                         minH="40px"
                                         onClick={() =>
-                                            setFilter("Offer Awaiting Review")
+                                            setFilter("Awaiting Response")
                                         }
                                     >
                                         Awaiting Response
@@ -104,9 +102,29 @@ const Offers = () => {
             </Flex>
 
             <Box mt="24px">
-                {obj.map((offer, i) => {
-                    return <OfferDetails key={i} offer={offer} />;
-                })}
+                {filter === "All Offers"
+                    ? allOffer.map((offer, i) => {
+                          return <OfferDetails key={i} offer={offer} />;
+                      })
+                    : ""}
+
+                {filter === "Accepted"
+                    ? accepted.map((offer, i) => {
+                          return <OfferDetails key={i} offer={offer} />;
+                      })
+                    : ""}
+
+                {filter === "Rejected"
+                    ? rejected.map((offer, i) => {
+                          return <OfferDetails key={i} offer={offer} />;
+                      })
+                    : ""}
+
+                {filter === "Awaiting Response"
+                    ? waiting.map((offer, i) => {
+                          return <OfferDetails key={i} offer={offer} />;
+                      })
+                    : ""}
             </Box>
         </Box>
     );

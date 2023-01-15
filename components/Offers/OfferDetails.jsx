@@ -1,4 +1,13 @@
-import { Box, Button, Flex, Icon, Image, Input, Text } from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    Flex,
+    Icon,
+    Image,
+    Input,
+    Spinner,
+    Text,
+} from "@chakra-ui/react";
 import { format } from "date-fns";
 import React, { useState } from "react";
 import { AiOutlineClockCircle } from "react-icons/ai";
@@ -17,9 +26,11 @@ const OfferDetails = ({ offer }) => {
 
     const [counterOffer, setCounterOffer] = useState(false);
     const [counterOfferValue, setCounterOfferValue] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const enableCounterOffer = (e) => {
         setCounterOffer(true);
+        offer.status = "";
     };
 
     const disableCounterOffer = () => {
@@ -27,13 +38,30 @@ const OfferDetails = ({ offer }) => {
     };
     const savecounterOffer = () => {
         offer.counterPrice = counterOfferValue;
-        setCounterOffer(false);
+        setLoading("countered");
+        setTimeout(() => {
+            setCounterOffer(false);
+            offer.status = "countered";
+            success({ title: "Offer countered" });
+            setLoading(false);
+        }, 3000);
     };
     const handleAccept = () => {
-        offer.status = "accepted";
-        console.log("accept");
+        setLoading("accept");
+        setTimeout(() => {
+            offer.status = "accepted";
+            success({ title: "Offer Accepted" });
+            setLoading(false);
+        }, 3000);
+    };
 
-        success({ title: "Offer Accepted" });
+    const handleReject = () => {
+        setLoading("reject");
+        setTimeout(() => {
+            offer.status = "rejected";
+            success({ title: "Offer Rejected" });
+            setLoading(false);
+        }, 3000);
     };
 
     return (
@@ -230,7 +258,13 @@ const OfferDetails = ({ offer }) => {
                                             _hover={{}}
                                             _active={{}}
                                             _focus={{}}
+                                            onClick={handleReject}
                                         >
+                                            {loading === "reject" ? (
+                                                <Spinner size="sm" mr="4px" />
+                                            ) : (
+                                                ""
+                                            )}
                                             Reject
                                         </Button>
 
@@ -245,6 +279,11 @@ const OfferDetails = ({ offer }) => {
                                             _focus={{}}
                                             onClick={handleAccept}
                                         >
+                                            {loading === "accept" ? (
+                                                <Spinner size="sm" mr="4px" />
+                                            ) : (
+                                                ""
+                                            )}
                                             Accept
                                         </Button>
 
@@ -257,7 +296,7 @@ const OfferDetails = ({ offer }) => {
                                             _hover={{}}
                                             _active={{}}
                                             _focus={{}}
-                                            // onClick={enableCounterOffer}
+                                            onClick={enableCounterOffer}
                                         >
                                             Counter Offer
                                         </Button>
@@ -280,7 +319,7 @@ const OfferDetails = ({ offer }) => {
                                         _hover={{}}
                                         _active={{}}
                                         _focus={{}}
-                                        // onClick={disableCounterOffer}
+                                        onClick={disableCounterOffer}
                                     >
                                         Cancle
                                     </Button>
@@ -294,8 +333,13 @@ const OfferDetails = ({ offer }) => {
                                         _hover={{}}
                                         _active={{}}
                                         _focus={{}}
-                                        // onClick={savecounterOffer}
+                                        onClick={savecounterOffer}
                                     >
+                                        {loading === "countered" ? (
+                                            <Spinner size="sm" mr="4px" />
+                                        ) : (
+                                            ""
+                                        )}
                                         Save
                                     </Button>
                                 </Flex>
