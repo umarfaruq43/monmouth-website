@@ -62,7 +62,7 @@ const Settings = () => {
                             </Flex>
 
                             <Flex
-                                href="#"
+                                href="#password"
                                 as={NextLink}
                                 fontWeight="600"
                                 fontSize="14px"

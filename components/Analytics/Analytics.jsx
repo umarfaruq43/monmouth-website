@@ -36,7 +36,7 @@ const Analytics = () => {
                 >
                     Transactions
                 </Text>
-                {/* <TransactionTable transactionData={transactionData} /> */}
+                <TransactionTable transactionData={transactionData} />
             </Box>
         </Box>
     );

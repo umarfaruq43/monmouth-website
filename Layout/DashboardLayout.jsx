@@ -45,6 +45,7 @@ import { RiSearchLine } from "react-icons/ri";
 import { TbDiscount2 } from "react-icons/tb";
 import { MdNoteAlt } from "react-icons/md";
 import { NextLink } from "next/link";
+import { BiLogOut } from "react-icons/bi";
 
 const LinkItems = [
     { name: "Dashboard", icon: FaEnvelopeOpen, active: "/" },
@@ -53,7 +54,7 @@ const LinkItems = [
     { name: "Offers", icon: TbDiscount2, active: "/offers" },
     { name: "Analytics", icon: MdNoteAlt, active: "/analytics" },
     { name: "Settings", icon: FiSettings, active: "/settings" },
-    { name: "Logout", icon: FiStar, active: "/logout" },
+    { name: "Logout", icon: BiLogOut, active: "#" },
 ];
 
 export default function DashboardLayout({ children, passedActive }) {
@@ -196,7 +197,6 @@ const NavItem = ({ icon, children, link, passedActive, ...rest }) => {
                             color: "brand.primary",
                         }}
                         as={icon}
-                        
                     />
                 )}
 

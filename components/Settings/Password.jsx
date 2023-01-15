@@ -75,7 +75,7 @@ const Password = () => {
         setEdit(true);
     };
     return (
-        <Box mt="32px">
+        <Box mt="32px" id="password">
             <Flex align="center" justify="space-between">
                 <Text
                     fontSize={"20px"}
