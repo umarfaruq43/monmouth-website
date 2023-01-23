@@ -12,7 +12,7 @@ const Home = () => {
     const { user } = useAuthContext();
 
     return (
-        <Layout> 
+        <Layout title={"Monmouth Cards"}> 
         
             <Dashboard />
         </Layout>

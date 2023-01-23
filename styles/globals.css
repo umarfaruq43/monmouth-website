@@ -56,3 +56,14 @@ input {
 table * {
     font-family: Sofia-Pro, sans-serif !important;
 }
+
+/* *** Nprogress Editing *** */
+
+/* #nprogress .bar {
+    height: 3px;
+}
+#nprogress .spinner-icon {
+    width: 25px;
+    height: 25px;
+    border: solid 3px transparent;
+} */

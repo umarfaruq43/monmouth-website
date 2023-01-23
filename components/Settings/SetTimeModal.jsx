@@ -16,8 +16,21 @@ import { useState } from "react";
 import { CustomToast } from "../Alert";
 
 function SetTimeModal({ isOpen, onOpen, onClose }) {
+    var defaultTime = {
+        hours: "07",
+        min: "00",
+    };
     const [sufix, setSufix] = useState("AM");
+    const [time, setTime] = useState(defaultTime);
     const { success } = CustomToast();
+
+    const { hours, min } = time;
+    const handleTimeChange = (e) => {
+        const { name, value } = e.target;
+
+        setTime({ ...time, [name]: value });
+    };
+
     return (
         <>
             <Modal
@@ -51,13 +64,16 @@ function SetTimeModal({ isOpen, onOpen, onClose }) {
                                             maxLength={2}
                                             max="2"
                                             w="96px"
-                                            pl="18px"
+                                            name="hours"
+                                            value={hours}
+                                            pl="14px"
                                             h="80px"
                                             fontSize={"56px"}
                                             className="sofia"
                                             _active={{}}
                                             _focus={{}}
                                             type="number"
+                                            onChange={handleTimeChange}
                                         />
                                     </Box>
                                     <Text fontSize={"54px"}>:</Text>
@@ -66,6 +82,8 @@ function SetTimeModal({ isOpen, onOpen, onClose }) {
                                         <Input
                                             maxLength={2}
                                             max="2"
+                                            name="min"
+                                            value={min}
                                             w="96px"
                                             pl="15px"
                                             h="80px"
@@ -74,6 +92,7 @@ function SetTimeModal({ isOpen, onOpen, onClose }) {
                                             _active={{}}
                                             _focus={{}}
                                             type="number"
+                                            onChange={handleTimeChange}
                                         />
                                     </Box>
                                     <Box>
@@ -130,7 +149,10 @@ function SetTimeModal({ isOpen, onOpen, onClose }) {
                                 _hover={{}}
                                 color={"brand.primary"}
                                 bgColor={"transparent"}
-                                onClick={onClose}
+                                onClick={() => {
+                                    onClose();
+                                    setTime(defaultTime);
+                                }}
                             >
                                 CANCLE
                             </Button>

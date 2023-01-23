@@ -1,5 +1,5 @@
-import { Badge, Box, Button, Flex, Text } from "@chakra-ui/react";
-import React from "react";
+import { Badge, Box, Button, Flex, SelectField, Text } from "@chakra-ui/react";
+import React, { useState } from "react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import BasicTable from "../Tables/BasicTable";
 import Pagination from "../Tables/Pagination";
@@ -8,6 +8,8 @@ import { cards } from "../../cards";
 const Card = () => {
     let soldCard = cards.slice(0, 5);
     let pendingCard = cards.slice(0, 3);
+    const [active, setActive] = useState(1);
+    console.log(active);
 
     return (
         <Box>
@@ -49,11 +51,16 @@ const Card = () => {
                             display="flex"
                             alignItems="center"
                             justify="center"
+                            onClick={() => setActive(1)}
                         >
                             All Cards
                             <Badge
                                 className="sofia"
-                                bgColor="brand.primary"
+                                bgColor={
+                                    active === 1
+                                        ? "brand.primary"
+                                        : "brand.grey_2"
+                                }
                                 borderRadius="full"
                                 color="brand.white"
                                 ml="8px"
@@ -62,7 +69,9 @@ const Card = () => {
                                 fontSize="10px"
                             >
                                 {" "}
-                                {`${cards && cards.length}+`}{" "}
+                                {`${cards && cards.length} ${
+                                    cards && cards.length > 99 ? "+" : ""
+                                }`}{" "}
                             </Badge>
                         </Tab>
                         <Tab
@@ -81,11 +90,16 @@ const Card = () => {
                             borderColor="brand.grey_3"
                             borderBottom="none"
                             className="slantBorder"
+                            onClick={() => setActive(2)}
                         >
                             Listed Cards
                             <Badge
                                 className="sofia"
-                                bgColor="brand.primary"
+                                bgColor={
+                                    active === 2
+                                        ? "brand.primary"
+                                        : "brand.grey_2"
+                                }
                                 borderRadius="full"
                                 color="brand.white"
                                 ml="8px"
@@ -94,7 +108,9 @@ const Card = () => {
                                 fontSize="10px"
                             >
                                 {" "}
-                                {`${cards && cards.length}+`}{" "}
+                                {`${cards && cards.length} ${
+                                    cards && cards.length > 99 ? "+" : ""
+                                }`}{" "}
                             </Badge>
                         </Tab>
                         <Tab
@@ -113,11 +129,16 @@ const Card = () => {
                             borderColor="brand.grey_3"
                             borderBottom="none"
                             className="slantBorder"
+                            onClick={() => setActive(3)}
                         >
                             Sold Cards
                             <Badge
                                 className="sofia"
-                                bgColor="brand.primary"
+                                bgColor={
+                                    active === 3
+                                        ? "brand.primary"
+                                        : "brand.grey_2"
+                                }
                                 borderRadius="full"
                                 color="brand.white"
                                 ml="8px"
@@ -126,7 +147,9 @@ const Card = () => {
                                 fontSize="10px"
                             >
                                 {" "}
-                                {`${cards && soldCard.length}+`}{" "}
+                                {`${cards && cards.length} ${
+                                    cards && cards.length > 99 ? "+" : ""
+                                }`}{" "}
                             </Badge>
                         </Tab>
                         <Tab
@@ -145,11 +168,16 @@ const Card = () => {
                             borderColor="brand.grey_3"
                             borderBottom="none"
                             className="slantBorder"
+                            onClick={() => setActive(4)}
                         >
                             Pending Cards
                             <Badge
                                 className="sofia"
-                                bgColor="brand.primary"
+                                bgColor={
+                                    active === 4
+                                        ? "brand.primary"
+                                        : "brand.grey_2"
+                                }
                                 borderRadius="full"
                                 color="brand.white"
                                 ml="8px"
@@ -158,7 +186,9 @@ const Card = () => {
                                 fontSize="10px"
                             >
                                 {" "}
-                                {`${cards && pendingCard.length}+`}{" "}
+                                {`${cards && cards.length} ${
+                                    cards && cards.length > 99 ? "+" : ""
+                                }`}{" "}
                             </Badge>
                         </Tab>
                     </TabList>

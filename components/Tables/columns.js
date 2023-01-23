@@ -1,6 +1,18 @@
-import { Box, Button, Icon, Image, Text } from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    Icon,
+    Image,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    Portal,
+    Text,
+} from "@chakra-ui/react";
 import { format } from "date-fns";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import Form from "./Form";
 
 export const COLUMN = [
     {
@@ -63,6 +75,60 @@ export const COLUMN = [
         // accessor: "market_place",
         Cell: (values) => {
             return (
+                // <Box position={"relative"}>
+                //     <Menu
+                //         closeOnBlur={false}
+                //         matchWidth={false}
+                //         preventOverflow={true}
+                //         placement="bottom-start"
+                //     >
+                //         <MenuButton
+                //             as={Button}
+                //             maxW="128px"
+                //             bgColor="brand.light_1"
+                //             _active={{ bgColor: "" }}
+                //             fontSize="14px"
+                //             color="brand.black"
+                //             w="100%"
+                //             h="34px"
+                //             borderRadius={"none"}
+                //             display="flex"
+                //             alignItems={"center"}
+                //             rightIcon={<RiArrowDropDownLine />}
+                //         >
+                //             View All
+                //             {/* <Icon
+                //             display="inline-block"
+                //             ml="1px"
+                //             fontSize="25px"
+                //             as={RiArrowDropDownLine}
+                //         /> */}
+                //         </MenuButton>
+
+                //         <MenuList
+                //             w="1094px"
+                //             bg="brand.grey_4"
+                //             borderLeft="2px solid #8173de"
+                //             boxShadow={"0px 4px 20px rgba(18, 18, 18, 0.03)"}
+                //         >
+                //             <Box
+                //                 py="24px"
+                //                 px="16px"
+                //                 w="100%"
+                //                 position=""
+                //                 left={0}
+                //                 top={1}
+                //                 // minH="212px"
+                //                 zIndex={1}
+                //                 //    border={2}
+                //                 //    borderColor='#fff'
+                //             >
+                //                 <Form />
+                //             </Box>
+                //         </MenuList>
+                //     </Menu>
+                // </Box>
+
                 <Button
                     maxW="128px"
                     bgColor="brand.light_1"

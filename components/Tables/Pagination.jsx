@@ -92,7 +92,7 @@ const Pagination = ({ cards }) => {
                             return (
                                 <>
                                     <Tr
-                                        realD={idx}
+                                        
                                         key={idx}
                                         {...row.getRowProps()}
                                         display=""

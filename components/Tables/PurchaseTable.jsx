@@ -90,40 +90,37 @@ const PurchaseTable = ({ purchase_details }) => {
                             prepareRow(row);
 
                             return (
-                                <>
-                                    <Tr
-                                        realD={idx}
-                                        key={idx}
-                                        {...row.getRowProps()}
-                                        display=""
-                                        borderColor={"brand.primary"}
-                                        borderLeft={
-                                            currentView
-                                                ? "1px solid #6454D6"
-                                                : "none"
-                                        }
-                                    >
-                                        {row.cells.map((cell, idx) => {
-                                            return (
-                                                <>
-                                                    <Td
-                                                        onClick={() => {
-                                                            // router.push(
-                                                            //     `/single_card/${cell.row.original.id}`
-                                                            // );
-                                                        }}
-                                                        fontSize={"14px"}
-                                                        fontWeight={600}
-                                                        key={idx}
-                                                        {...cell.getCellProps()}
-                                                    >
-                                                        {cell.render("Cell")}
-                                                    </Td>
-                                                </>
-                                            );
-                                        })}
-                                    </Tr>
-                                </>
+                                <Tr
+                                    key={idx}
+                                    {...row.getRowProps()}
+                                    display=""
+                                    borderColor={"brand.primary"}
+                                    borderLeft={
+                                        currentView
+                                            ? "1px solid #6454D6"
+                                            : "none"
+                                    }
+                                >
+                                    {row.cells.map((cell, idx) => {
+                                        return (
+                                            
+                                                <Td
+                                                    onClick={() => {
+                                                        // router.push(
+                                                        //     `/single_card/${cell.row.original.id}`
+                                                        // );
+                                                    }}
+                                                    fontSize={"14px"}
+                                                    fontWeight={600}
+                                                    key={idx}
+                                                    {...cell.getCellProps()}
+                                                >
+                                                    {cell.render("Cell")}
+                                                </Td>
+                                            
+                                        );
+                                    })}
+                                </Tr>
                             );
                         })}
                     </Tbody>

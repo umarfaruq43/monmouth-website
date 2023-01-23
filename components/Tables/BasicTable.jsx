@@ -73,7 +73,6 @@ const BasicTable = () => {
                         return (
                             <>
                                 <Tr
-                                    realD={idx}
                                     key={idx}
                                     {...row.getRowProps()}
                                     display=""
@@ -96,7 +95,7 @@ const BasicTable = () => {
                                                         ) {
                                                             setViewCardPrice(
                                                                 cell.row
-                                                                    .original
+                                                                    .original.id
                                                             );
                                                             setCurrentView(
                                                                 !currentView
@@ -125,7 +124,7 @@ const BasicTable = () => {
                                     })}
                                 </Tr>
 
-                                {currentView && viewCardPrice ? (
+                                { viewCardPrice ? (
                                     <Tr
                                         bg="brand.grey_4"
                                         borderLeft="2px solid #8173de"

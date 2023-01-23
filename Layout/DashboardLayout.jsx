@@ -156,7 +156,7 @@ const NavItem = ({ icon, children, link, passedActive, ...rest }) => {
 
     return (
         <Link
-            as={NextLink}
+            // as={NextLink}
             href={link.active}
             style={{ textDecoration: "none" }}
             _focus={{ boxShadow: "none" }}
