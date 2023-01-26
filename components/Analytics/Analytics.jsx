@@ -8,7 +8,7 @@ import { LineChart } from "./LineChart";
 const Analytics = () => {
     return (
         <Box>
-            <Flex my="20px" py="30px">
+            <Flex my="20px" py="30px" gap="32px">
                 <Box w="100%">
                     <LineChart />
                 </Box>

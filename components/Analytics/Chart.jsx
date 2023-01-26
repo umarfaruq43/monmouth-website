@@ -1,24 +1,23 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
+import {
+    Box,
+    Flex,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    Select,
+    Text,
+    Button,
+} from "@chakra-ui/react";
+import { FaChevronDown } from "react-icons/fa";
 
 const Chart_com = () => {
     const chartRef = useRef();
     const data = {
-        labels: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec",
-        ],
+        labels: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         datasets: [
             {
                 // label: "My First Dataset",
@@ -32,21 +31,11 @@ const Chart_com = () => {
 
     const options = {
         responsive: true,
-        maintainAspectRatio: true,
-        hoverBackgroundColor: "#6454D6",
-        layout: {
-            padding: 30,
-        },
-        plugins: {
-            legend: {
-                display: false,
-                position: "left",
-                align: "start",
 
-                labels: {
-                    boxWidth: 10,
-                },
-            },
+        hoverBackgroundColor: "#6454D6",
+
+        plugins: {
+            legend: false,
             title: {
                 display: false,
             },
@@ -76,15 +65,11 @@ const Chart_com = () => {
         },
         scales: {
             x: {
-               
                 grid: {
                     display: false,
-                    drawBorder: false,
                 },
                 ticks: {
                     color: "#A2A2A2",
-                    padding: 20,
-                   
                 },
             },
             y: {
@@ -94,11 +79,13 @@ const Chart_com = () => {
                 ticks: {
                     color: "#A2A2A2",
                     stepSize: 10,
-                    padding: 20,
+
                     callback: function (value, index) {
                         return `${value}k`;
                     },
                 },
+                padding: 10,
+                stepSize: 5,
                 grid: {
                     display: true,
                     drawBorder: false,
@@ -106,10 +93,79 @@ const Chart_com = () => {
             },
         },
     };
+
+    const [filter, setFilter] = useState("Monthly");
     return (
-        <div>
+        <Box maxW={""} w="100%" p="24px" bgColor={"brand.white"}>
+            <Flex mb="16px" justify={"space-between"}>
+                <Box>
+                    <Text
+                        fontSize={"16px"}
+                        className="sofia"
+                        fontWeight={"400"}
+                        color="brand.lightGray"
+                    >
+                        Revenue
+                    </Text>
+                    <Text
+                        mt="8px"
+                        fontSize={"32px"}
+                        fontWeight={700}
+                        color="brand.black"
+                    >
+                        $45,325.00
+                    </Text>
+                </Box>
+
+                <Box>
+                    <Menu>
+                        <MenuButton
+                            as={Button}
+                            rightIcon={<FaChevronDown />}
+                            w="120px"
+                            textAlign="left"
+                            bg="transparent"
+                            fontWeight="500"
+                            fontSize={"14px"}
+                            _hover={{ bg: "transparent" }}
+                            _active={{ bg: "transparent" }}
+                            border="1px"
+                            borderColor="brand.light_2"
+                        >
+                            {filter}
+                        </MenuButton>
+                        <MenuList maxW="210px">
+                            <MenuItem
+                                minH="48px"
+                                onClick={() => setFilter("Month")}
+                            >
+                                Month
+                            </MenuItem>
+                            <MenuItem
+                                minH="40px"
+                                onClick={() => setFilter("week")}
+                            >
+                                Week
+                            </MenuItem>
+
+                            <MenuItem
+                                minH="40px"
+                                onClick={() => setFilter("day")}
+                            >
+                                Day
+                            </MenuItem>
+                            <MenuItem
+                                minH="40px"
+                                onClick={() => setFilter("year")}
+                            >
+                                Year
+                            </MenuItem>
+                        </MenuList>
+                    </Menu>
+                </Box>
+            </Flex>
             <Bar options={options} data={data} ref={chartRef} />
-        </div>
+        </Box>
     );
 };
 

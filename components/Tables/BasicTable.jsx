@@ -77,11 +77,7 @@ const BasicTable = () => {
                                     {...row.getRowProps()}
                                     display=""
                                     borderColor={"brand.primary"}
-                                    borderLeft={
-                                        currentView
-                                            ? "1px solid #6454D6"
-                                            : "none"
-                                    }
+                                    position="relative"
                                 >
                                     {row.cells.map((cell, idx) => {
                                         return (
@@ -122,9 +118,54 @@ const BasicTable = () => {
                                             </>
                                         );
                                     })}
+
+                                    {row.cells.map((cell, idx) => {
+                                        return (
+                                            <>
+                                                {currentView &&
+                                                viewCardPrice ===
+                                                    cell.row.original.id ? (
+                                                    <Tr
+                                                        zIndex={"modal"}
+                                                        key={idx}
+                                                        bg="brand.grey_4"
+                                                        borderLeft="2px solid #8173de"
+                                                        // boxShadow={
+                                                        //     "0px 4px 20px rgba(18, 18, 18, 0.03)"
+                                                        // }
+                                                        position="absolute"
+                                                        right={"-5px"}
+                                                        top="70px"
+                                                    >
+                                                        <Td
+                                                            colSpan={"6"}
+                                                            pos="relative"
+                                                        >
+                                                            <Box
+                                                                py="24px"
+                                                                px="16px"
+                                                                w="100%"
+                                                                position=""
+                                                                left={0}
+                                                                top={1}
+                                                                // minH="212px"
+                                                                zIndex={1}
+                                                                //    border={2}
+                                                                //    borderColor='#fff'
+                                                            >
+                                                                <Form />
+                                                            </Box>
+                                                        </Td>
+                                                    </Tr>
+                                                ) : (
+                                                    ""
+                                                )}
+                                            </>
+                                        );
+                                    })}
                                 </Tr>
 
-                                { viewCardPrice ? (
+                                {/* {viewCardPrice ===  ? (
                                     <Tr
                                         bg="brand.grey_4"
                                         borderLeft="2px solid #8173de"
@@ -151,7 +192,7 @@ const BasicTable = () => {
                                     </Tr>
                                 ) : (
                                     ""
-                                )}
+                                )} */}
                             </>
                         );
                     })}

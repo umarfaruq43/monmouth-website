@@ -46,6 +46,7 @@ import { TbDiscount2 } from "react-icons/tb";
 import { MdNoteAlt } from "react-icons/md";
 import { NextLink } from "next/link";
 import { BiLogOut } from "react-icons/bi";
+import NavNotification from "../components/NavNotification";
 
 const LinkItems = [
     { name: "Dashboard", icon: FaEnvelopeOpen, active: "/" },
@@ -156,8 +157,9 @@ const NavItem = ({ icon, children, link, passedActive, ...rest }) => {
 
     return (
         <Link
-            // as={NextLink}
-            href={link.active}
+            as={Box}
+            onClick={() => router.push(link.active)}
+            // href={link.active}
             style={{ textDecoration: "none" }}
             _focus={{ boxShadow: "none" }}
             fontSize="16px"
@@ -268,14 +270,8 @@ const MobileNav = ({ onOpen, ...rest }) => {
             </Text>
 
             <HStack spacing={{ base: "0", md: "6" }}>
-                <IconButton
-                    bg="#F5F1FF"
-                    mr="10px"
-                    borderRadius={"6px"}
-                    aria-label="open notification"
-                    icon={<FiBell />}
-                    color="brand.primary"
-                />
+                <NavNotification />
+
                 <Flex alignItems={"center"}>
                     <Menu>
                         <HStack>
