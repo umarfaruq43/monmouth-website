@@ -12,6 +12,7 @@ import {
     IoIosCloseCircle,
     IoIosWarning,
     IoMdCheckmarkCircle,
+    IoMdCloseCircle,
 } from "react-icons/io";
 import { AiFillInfoCircle } from "react-icons/ai";
 
@@ -70,49 +71,38 @@ export const CustomToast = () => {
             render: () => (
                 <Box
                     w="100%"
+                    mt="20px"
                     py={4}
-                    px={closeAble ? [2, 2, 2] : [2, 4, 8]}
+                    px={([2, 2, 2], [2, 4, 8])}
                     boxShadow="0px 6px 12px rgba(24, 39, 75, 0.12) "
-                    bg="white"
+                    bg="brand.error"
+                    border="1px"
+                    borderColor="brand.accent"
+                    borderRadius={"8px"}
                     // maxW={closeAble ? "556px" : "406.15px"}
                 >
-                    <Flex gap={closeAble ? "12px" : "18px"}>
-                        <Box p="2px">
-                            <Icon
-                                as={IoIosCloseCircle}
-                                w="22px"
-                                h="22px"
-                                color="error_500"
-                            />
-                        </Box>
-
-                        <Box maxW={"410px"}>
+                    <Flex gap={["12px", "18px"]} w="100%" align={"center"}>
+                        <Box maxW={"624px"} w="654px">
                             <Text
                                 fontWeight={"600"}
-                                fontSize={closeAble ? "sm" : "lg"}
-                                color="error_500"
+                                // fontSize={[ "sm" : "lg"]}
+                                color="success_500"
                                 mb="1"
+                                zIndex={"overlay"}
                             >
                                 {title}
                             </Text>
-                            <Text
-                                color="gray_500"
-                                fontWeight={"400"}
-                                flex={1}
-                                fontSize="sm"
-                                lineHeight={"160%"}
-                            >
-                                {message}
-                            </Text>
                         </Box>
 
-                        {closeAble ? (
-                            <Box>
-                                <CloseButton onClick={() => toast.closeAll()} />
-                            </Box>
-                        ) : (
-                            ""
-                        )}
+                        <Box>
+                            <Icon
+                                as={IoMdCloseCircle}
+                                w="22px"
+                                h="22px"
+                                color="brand.accent"
+                                onClick={() => toast.closeAll()}
+                            />
+                        </Box>
                     </Flex>
                 </Box>
             ),

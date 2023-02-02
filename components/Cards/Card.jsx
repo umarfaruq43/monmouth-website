@@ -9,7 +9,7 @@ const Card = () => {
     let soldCard = cards.slice(0, 5);
     let pendingCard = cards.slice(0, 3);
     const [active, setActive] = useState(1);
-    console.log(active);
+    // console.log(active);
 
     return (
         <Box>

@@ -16,7 +16,7 @@ import { CustomToast } from "../Alert";
 const OfferDetails = ({ offer }) => {
     const { success } = CustomToast();
 
-    console.log(offer);
+    // console.log(offer);
     const month = format(new Date(), "MMM");
     const fullMonth = format(new Date(), "MMMMMM");
     const time = format(new Date(), "p");

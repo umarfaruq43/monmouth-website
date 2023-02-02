@@ -14,13 +14,14 @@ import {
     Text,
     useColorModeValue,
     FormErrorMessage,
+    Spinner,
 } from "@chakra-ui/react";
 import FormScreen from "../../Layout/FormScreen";
 import InputForm from "../InputForm";
 import { useAuthContext } from "../../Contexts/AuthContext";
 
 const ForgetPassword = () => {
-    const { forgetPassword } = useAuthContext();
+    const { forgetPassword, loading } = useAuthContext();
 
     const {
         handleSubmit,
@@ -29,14 +30,7 @@ const ForgetPassword = () => {
     } = useForm();
 
     function onSubmit(values) {
-        // return new Promise((resolve) => {
-        //     setTimeout(() => {
-        //         // alert(JSON.stringify(values, null, 2));
-
-        //         resolve();
-        //     }, 3000);
-        // });
-       forgetPassword(values);
+        forgetPassword(values);
     }
 
     return (
@@ -110,9 +104,10 @@ const ForgetPassword = () => {
                                     isLoading={isSubmitting}
                                     type="submit"
                                     //     fontSize={"20px"}
+                                    disabled={loading ? true : false}
                                     py="16px"
                                 >
-                                    Next
+                                    {loading ? <Spinner size="sm" /> : "Next"}
                                 </Button>
                                 <Box textAlign={"center"} mt="30px">
                                     <Link

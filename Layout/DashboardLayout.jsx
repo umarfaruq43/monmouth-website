@@ -100,7 +100,6 @@ export default function DashboardLayout({ children, passedActive }) {
 }
 
 const SidebarContent = ({ onClose, passedActive, ...rest }) => {
-    console.log("passedActive", passedActive);
     return (
         <Box
             transition="3s ease"
@@ -153,12 +152,17 @@ const SidebarContent = ({ onClose, passedActive, ...rest }) => {
 
 const NavItem = ({ icon, children, link, passedActive, ...rest }) => {
     const router = useRouter();
-    console.log("NAV passedActive", passedActive);
-
+    console.log(children);
     return (
         <Link
             as={Box}
-            onClick={() => router.push(link.active)}
+            onClick={() => {
+                if (children === "Logout") {
+                    router.push("/auth/login");
+                } else {
+                    router.push(link.active);
+                }
+            }}
             // href={link.active}
             style={{ textDecoration: "none" }}
             _focus={{ boxShadow: "none" }}

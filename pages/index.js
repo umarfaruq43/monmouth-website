@@ -5,16 +5,16 @@ import Dashboard from "../components/Dashboard/Dashboard";
 import { useAuthContext } from "../Contexts/AuthContext";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { ProtectRoute } from "../components/ProtectedPage";
+import Login from "../components/auth/Login";
 
 const Home = () => {
     const navigate = useRouter();
     const { user } = useAuthContext();
 
     return (
-        <Layout title={"Monmouth Cards"}> 
-        
-            <Dashboard />
+        <Layout title={"Monmouth Cards"}>
+            {/* <Dashboard /> */}
+            <Login />
         </Layout>
     );
 };

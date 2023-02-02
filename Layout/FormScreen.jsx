@@ -23,20 +23,19 @@ import NextLink from "next/link";
 
 const FormScreen = ({ children, ...prop }) => {
     return (
-        <Flex
-            
-            minH={"100vh"}
-            align={"center"}
-            justify={"center"}
-        >
+        <Flex minH={"100vh"} align={"center"} justify={"center"}>
             <Box mx={"auto"} py={[12]} px={["2", null, 8]} {...prop} w="100%">
                 <Link href="/" as={NextLink}>
-                    <Image
-                        src="/Logo.svg"
-                        alt="momentum logo"
-                        mx="auto"
-                        mb="40px"
-                    />
+                    <Box>
+                        <Image
+                            src="/Logo.svg"
+                            alt="momentum logo"
+                            mx="auto"
+                            mb="40px"
+                            w="217px"
+                            h="100%"
+                        />
+                    </Box>
                 </Link>
 
                 <Box

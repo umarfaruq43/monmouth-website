@@ -16,6 +16,7 @@ import {
     FormErrorMessage,
     Center,
     HStack,
+    Spinner,
 } from "@chakra-ui/react";
 import FormScreen from "../../Layout/FormScreen";
 import InputForm from "../InputForm";
@@ -31,17 +32,37 @@ const Verify = () => {
         formState: { errors, isSubmitting },
     } = useForm();
 
-    const { verify } = useAuthContext();
+    const { verify, loading } = useAuthContext();
 
     const [pin, setPin] = useState("");
-
+    const [err, setErr] = useState(null);
+    // object to submit
+    let pinValues = {
+        email: userEmail && userEmail,
+        code: pin,
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(pin);
+        if (pin.length < 4) {
+            console.log("Pin not complete");
+            setErr("Input pin correclty");
+        } else {
+            console.log(pin);
+            setErr(null);
+            verify(pinValues);
+        }
     };
 
+
+    const handleChange = (value) => {
+        setPin(value);
+    };
+    // const handleComplete = (value) => {
+    //     console.log(value);
+    // };
     useEffect(() => {
         const user_email = localStorage.getItem("reset_email");
+        const sentCode = localStorage.getItem("resToken");
         setUserEmail(user_email);
     }, []);
     return (
@@ -70,7 +91,11 @@ const Verify = () => {
                         >
                             Enter the 4 digit code you receive at
                         </Text>
-                        <Text color="brand.black" textAlign="center" noOfLines={2}>
+                        <Text
+                            color="brand.black"
+                            textAlign="center"
+                            noOfLines={2}
+                        >
                             {userEmail && userEmail}
                         </Text>
                     </Box>
@@ -84,6 +109,9 @@ const Verify = () => {
                                                 size="lg"
                                                 placeholder=""
                                                 required
+                                                onChange={handleChange}
+                                                // onComplete={handleComplete}
+                                                otp
                                             >
                                                 <PinInputField
                                                     _focusVisible={{
@@ -91,7 +119,6 @@ const Verify = () => {
                                                             "brand.primary",
                                                     }}
                                                     value={pin}
-                                                    onChange={() => setPin(pin)}
                                                 />
                                                 <PinInputField
                                                     _focusVisible={{
@@ -115,21 +142,31 @@ const Verify = () => {
                                         </HStack>
                                     </Center>
                                 </FormControl>
+                                {/* Error Message  */}
+                                {err && (
+                                    <Text
+                                        color="brand.accent"
+                                        textAlign="center"
+                                        mt="8px"
+                                    >
+                                        {" "}
+                                        {err}{" "}
+                                    </Text>
+                                )}
                             </Box>
 
-                            <Flex flexDir={"column"} mt="34px">
+                            <Flex flexDir={"column"} mt="24px">
                                 <Button
                                     bg="brand.primary"
                                     _hover={{ bg: "brand.primary" }}
                                     _active={{ bg: "brand.primary" }}
                                     color="brand.white"
-                                    //     isLoading={isSubmitting}
                                     type="submit"
-                                    //     fontSize={"20px"}
                                     py="16px"
-                                    onClick={verify}
+                                    onClick={handleSubmit}
+                                    disabled={loading ? true : false}
                                 >
-                                    Next
+                                    {loading ? <Spinner size="sm" /> : "Next"}
                                 </Button>
                                 <Box textAlign={"center"} mt="30px">
                                     <Link

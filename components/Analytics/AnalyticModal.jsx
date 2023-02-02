@@ -18,7 +18,7 @@ import {
 import NextLink from "next/link";
 
 const AnalyticModal = ({ isOpen, onOpen, onClose, values }) => {
-    console.log("values", values);
+    // console.log("values", values);
     return (
         <div>
             <Box>

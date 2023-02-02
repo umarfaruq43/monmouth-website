@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import NextLink from "next/link";
 import { useForm } from "react-hook-form";
@@ -21,15 +20,22 @@ import {
     InputGroup,
     InputRightElement,
     Image,
+    Spinner,
 } from "@chakra-ui/react";
 import FormScreen from "../../Layout/FormScreen";
 import InputForm from "../InputForm";
 import { useAuthContext } from "../../Contexts/AuthContext";
 
 const ResetPassword = () => {
-    const { signIn } = useAuthContext();
+    const { resetPword, loading, reset, setReset } = useAuthContext();
     const [showPass, setShowPass] = useState(false);
-    const [done, setDone] = useState(false);
+    const [userEmail, setUserEmail] = useState("");
+
+    // Getting the email from local storage.
+    useEffect(() => {
+        const user_email = localStorage.getItem("reset_email");
+        setUserEmail(user_email);
+    }, []);
 
     const {
         handleSubmit,
@@ -39,22 +45,16 @@ const ResetPassword = () => {
     } = useForm();
 
     function onSubmit(values) {
-        // return new Promise((resolve) => {
-        //     setTimeout(() => {
-        //         // alert(JSON.stringify(values, null, 2));
-
-        //         resolve();
-        //     }, 3000);
-        // });
-        if (values.password !== values.confirmPassword) {
+        if (values.confirmPassword !== values.newPassword) {
             setError(
-                "confirmPassword",
+                "newPassword",
                 { type: "focus", message: "Password does not match" },
                 { shouldFocus: true }
             );
         } else {
-            // signIn(values);
-            setDone(true);
+            values.email = userEmail;
+            resetPword(values);
+            console.log(values);
         }
     }
 
@@ -66,7 +66,7 @@ const ResetPassword = () => {
             bgSize="contain"
         >
             <FormScreen>
-                {done ? (
+                {reset ? (
                     <Box py="">
                         <Box>
                             <Image
@@ -153,7 +153,7 @@ const ResetPassword = () => {
                                         color="brand.black"
                                         mb="8px"
                                     >
-                                        Enter your password
+                                        Enter new password
                                     </FormLabel>
                                     <InputGroup>
                                         <Input
@@ -170,7 +170,7 @@ const ResetPassword = () => {
                                             fontSize={"14px"}
                                             id="password"
                                             placeholder="Enter new Password"
-                                            {...register("password", {
+                                            {...register("confirmPassword", {
                                                 required:
                                                     "Password is required",
                                                 minLength: {
@@ -178,64 +178,11 @@ const ResetPassword = () => {
                                                     message:
                                                         "Must be at least 8 characters",
                                                 },
-                                            })}
-                                        />
-
-                                        <InputRightElement
-                                            onClick={() =>
-                                                setShowPass(!showPass)
-                                            }
-                                        >
-                                            {showPass ? (
-                                                <BsEyeSlash color="grey" />
-                                            ) : (
-                                                <BsEye color="grey" />
-                                            )}
-                                        </InputRightElement>
-                                    </InputGroup>
-                                    <FormErrorMessage>
-                                        {errors.password &&
-                                            errors.password.message}
-                                    </FormErrorMessage>
-                                </FormControl>
-
-                                {/* Confirm Password  */}
-                                <FormControl
-                                    isInvalid={errors.confirmPassword}
-                                    mb="16px"
-                                >
-                                    <FormLabel
-                                        htmlFor="confirmPassword"
-                                        fontSize={"14px"}
-                                        fontWeight={500}
-                                        color="brand.black"
-                                        mb="8px"
-                                    >
-                                        Confirm Password
-                                    </FormLabel>
-                                    <InputGroup>
-                                        <Input
-                                            _active={{
-                                                borderColor: "brand.primary",
-                                            }}
-                                            _focusVisible={{
-                                                borderColor: "brand.primary",
-                                            }}
-                                            color="brand.black"
-                                            type={
-                                                showPass ? "text" : "password"
-                                            }
-                                            fontSize={"14px"}
-                                            id="confirmPassword"
-                                            placeholder="Confirm new password"
-                                            {...register("confirmPassword", {
-                                                required:
-                                                    "Password is required",
-                                                //     minLength: {
-                                                //         value: 8,
-                                                //         message:
-                                                //             "Must be at least 8 characters",
-                                                //     },
+                                                pattern: {
+                                                    value: /^(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+                                                    message:
+                                                        "Please enter a valid password",
+                                                },
                                             })}
                                         />
 
@@ -257,18 +204,84 @@ const ResetPassword = () => {
                                     </FormErrorMessage>
                                 </FormControl>
 
+                                {/* Confirm Password  */}
+                                <FormControl
+                                    isInvalid={errors.newPassword}
+                                    mb="16px"
+                                >
+                                    <FormLabel
+                                        htmlFor="newPassword"
+                                        fontSize={"14px"}
+                                        fontWeight={500}
+                                        color="brand.black"
+                                        mb="8px"
+                                    >
+                                        Confirm Password
+                                    </FormLabel>
+                                    <InputGroup>
+                                        <Input
+                                            _active={{
+                                                borderColor: "brand.primary",
+                                            }}
+                                            _focusVisible={{
+                                                borderColor: "brand.primary",
+                                            }}
+                                            color="brand.black"
+                                            type={
+                                                showPass ? "text" : "password"
+                                            }
+                                            fontSize={"14px"}
+                                            id="newPassword"
+                                            placeholder="Confirm new password"
+                                            {...register("newPassword", {
+                                                required:
+                                                    "Password is required",
+                                                minLength: {
+                                                    value: 8,
+                                                    message:
+                                                        "Must be at least 8 characters",
+                                                },
+                                                pattern: {
+                                                    value: /^(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+                                                    message:
+                                                        "Please enter a valid password",
+                                                },
+                                            })}
+                                        />
+
+                                        <InputRightElement
+                                            onClick={() =>
+                                                setShowPass(!showPass)
+                                            }
+                                        >
+                                            {showPass ? (
+                                                <BsEyeSlash color="grey" />
+                                            ) : (
+                                                <BsEye color="grey" />
+                                            )}
+                                        </InputRightElement>
+                                    </InputGroup>
+                                    <FormErrorMessage>
+                                        {errors.newPassword &&
+                                            errors.newPassword.message}
+                                    </FormErrorMessage>
+                                </FormControl>
+
                                 <Flex flexDir={"column"} mt="44px">
                                     <Button
                                         bg="brand.primary"
                                         _hover={{ bg: "brand.primary" }}
                                         _active={{ bg: "brand.primary" }}
                                         color="brand.white"
-                                        //     isLoading={isSubmitting}
                                         type="submit"
-                                        //     fontSize={"20px"}
+                                        disabled={loading ? true : false}
                                         py="16px"
                                     >
-                                        Next
+                                        {loading ? (
+                                            <Spinner size="sm" />
+                                        ) : (
+                                            "Next"
+                                        )}
                                     </Button>
                                     <Box textAlign={"center"} mt="30px">
                                         <Link

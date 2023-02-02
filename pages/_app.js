@@ -10,7 +10,7 @@ import NProgress from "nprogress";
 
 export default function App({ Component, pageProps }) {
     const router = useRouter();
-    console.log(router);
+    
     useEffect(() => {
         const handleRouteStart = () => NProgress.start();
         const handleRouteDone = () => NProgress.done();

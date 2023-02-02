@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import NextLink from "next/link";
 import { useForm } from "react-hook-form";
@@ -19,13 +19,14 @@ import {
     FormErrorMessage,
     InputGroup,
     InputRightElement,
+    Spinner,
 } from "@chakra-ui/react";
 import FormScreen from "../../Layout/FormScreen";
 import InputForm from "../InputForm";
 import { useAuthContext } from "../../Contexts/AuthContext";
 
 const Login = () => {
-    const { signIn } = useAuthContext();
+    const { signIn, loading, setReset } = useAuthContext();
     const [showPass, setShowPass] = useState(false);
 
     const {
@@ -35,15 +36,13 @@ const Login = () => {
     } = useForm();
 
     function onSubmit(values) {
-        // return new Promise((resolve) => {
-        //     setTimeout(() => {
-        //         // alert(JSON.stringify(values, null, 2));
-
-        //         resolve();
-        //     }, 3000);
-        // });
         signIn(values);
     }
+    useEffect(() => {
+        // This is use to handle the Password reset page.
+        setReset(false);
+        
+    }, []);
 
     return (
         <Box
@@ -141,6 +140,12 @@ const Login = () => {
                                                 message:
                                                     "Minimum length should be 8",
                                             },
+
+                                            pattern: {
+                                                value: /^(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+                                                message:
+                                                    "Please enter a valid password",
+                                            },
                                         })}
                                     />
 
@@ -181,12 +186,16 @@ const Login = () => {
                                     _hover={{ bg: "brand.primary" }}
                                     _active={{ bg: "brand.primary" }}
                                     color="brand.white"
-                                    isLoading={isSubmitting}
                                     type="submit"
                                     //     fontSize={"20px"}
                                     py="16px"
+                                    disabled={loading ? true : false}
                                 >
-                                    Sign In
+                                    {loading ? (
+                                        <Spinner size="sm" mr="12px" />
+                                    ) : (
+                                        "Sign In"
+                                    )}
                                 </Button>
                             </Stack>
                         </form>
