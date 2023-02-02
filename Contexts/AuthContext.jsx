@@ -15,7 +15,7 @@ export default function AuthContext({ children }) {
 
     // Signin function
     const signIn = (values) => {
-        navigate.push("/dashboard");
+        
         const handleSuccessFullSignIn = (data) => {
             success({ title: data && data.message });
             setLoading(false);
