@@ -101,7 +101,15 @@ const SignUp = () => {
                                     color="brand.black"
                                     mb="8px"
                                 >
-                                    Upload Image
+                                    Upload Image{" "}
+                                    <Text
+                                        display={"inline-block"}
+                                        fontSize={"12px"}
+                                        fontStyle="italic"
+                                        color={"light_1"}
+                                    >
+                                        (optional)
+                                    </Text>
                                 </FormLabel>
                                 <UploadButton />
                             </FormControl>
@@ -307,7 +315,11 @@ const SignUp = () => {
                                     disabled={loading ? true : false}
                                     py="16px"
                                 >
-                                    {loading ? <Spinner size="sm" /> : "Next"}
+                                    {loading ? (
+                                        <Spinner size="sm" />
+                                    ) : (
+                                        "Sign up"
+                                    )}
                                 </Button>
                                 <Box textAlign={"center"} mt="30px">
                                     <Link
