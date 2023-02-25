@@ -103,9 +103,7 @@ const SignUp = () => {
                                 >
                                     Upload Image
                                 </FormLabel>
-                                <UploadButton
-                                  
-                                />
+                                <UploadButton />
                             </FormControl>
 
                             {/* Full Name Input */}
@@ -146,6 +144,45 @@ const SignUp = () => {
                                     {errors.fName && errors.fName.message}
                                 </FormErrorMessage>
                             </FormControl>
+
+                            {/* Email Input */}
+                            <FormControl isInvalid={errors.email} mb="16px">
+                                <FormLabel
+                                    htmlFor="password"
+                                    fontSize={"14px"}
+                                    fontWeight={500}
+                                    color="brand.black"
+                                    mb="8px"
+                                >
+                                    Enter your email
+                                </FormLabel>
+                                <InputGroup>
+                                    <Input
+                                        _active={{
+                                            borderColor: "brand.primary",
+                                        }}
+                                        _focusVisible={{
+                                            borderColor: "brand.primary",
+                                        }}
+                                        color="brand.black"
+                                        type={"text"}
+                                        fontSize={"14px"}
+                                        id="email"
+                                        placeholder="Enter your Email"
+                                        {...register("email", {
+                                            required: "Email is required",
+                                            minLength: {
+                                                value: 3,
+                                                message:
+                                                    "Please enter your email",
+                                            },
+                                        })}
+                                    />
+                                </InputGroup>
+                                <FormErrorMessage>
+                                    {errors.email && errors.email.message}
+                                </FormErrorMessage>
+                            </FormControl>
                             {/* Password Input */}
                             <FormControl
                                 isInvalid={errors.confirmPassword}
@@ -183,7 +220,7 @@ const SignUp = () => {
                                             pattern: {
                                                 value: /^(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
                                                 message:
-                                                    "Please enter a valid password",
+                                                    "Password should be minimum of 8 numbers it must contain  one number and  one special character",
                                             },
                                         })}
                                     />
@@ -240,7 +277,7 @@ const SignUp = () => {
                                             pattern: {
                                                 value: /^(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
                                                 message:
-                                                    "Please enter a valid password",
+                                                    "Password should be minimum of 8 numbers it must contain  one number and  one special character",
                                             },
                                         })}
                                     />

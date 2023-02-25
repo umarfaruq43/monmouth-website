@@ -41,7 +41,6 @@ const Login = () => {
     useEffect(() => {
         // This is use to handle the Password reset page.
         setReset(false);
-        
     }, []);
 
     return (
@@ -144,7 +143,7 @@ const Login = () => {
                                             pattern: {
                                                 value: /^(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
                                                 message:
-                                                    "Please enter a valid password",
+                                                    "Password should be minimum of 8 numbers it must contain  one number and  one special character",
                                             },
                                         })}
                                     />

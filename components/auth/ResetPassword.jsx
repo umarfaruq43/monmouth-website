@@ -181,7 +181,7 @@ const ResetPassword = () => {
                                                 pattern: {
                                                     value: /^(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
                                                     message:
-                                                        "Please enter a valid password",
+                                                        "Password should be minimum of 8 numbers it must contain  one number and  one special character",
                                                 },
                                             })}
                                         />
@@ -244,7 +244,7 @@ const ResetPassword = () => {
                                                 pattern: {
                                                     value: /^(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
                                                     message:
-                                                        "Please enter a valid password",
+                                                        "Password should be minimum of 8 numbers it must contain  one number and  one special character",
                                                 },
                                             })}
                                         />
