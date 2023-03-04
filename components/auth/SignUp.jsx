@@ -30,16 +30,9 @@ import { AiFillFile } from "react-icons/ai";
 import UploadButton from "../UploadButton";
 
 const SignUp = () => {
-    const { resetPword, loading, reset, createUser, setReset } =
-        useAuthContext();
+    const { loading, signUp } = useAuthContext();
     const [showPass, setShowPass] = useState(false);
     const [userEmail, setUserEmail] = useState("");
-
-    // Getting the email from local storage.
-    useEffect(() => {
-        const user_email = localStorage.getItem("reset_email");
-        setUserEmail(user_email);
-    }, []);
 
     const {
         handleSubmit,
@@ -56,8 +49,14 @@ const SignUp = () => {
                 { shouldFocus: true }
             );
         } else {
-            values.email = userEmail;
-            createUser(values);
+            const userDetails = {
+                fullName: values.fName,
+                email: values.email,
+                password: values.confirmPassword,
+            };
+
+            signUp(userDetails);
+            console.log(userDetails);
         }
     }
 
@@ -184,11 +183,20 @@ const SignUp = () => {
                                                 message:
                                                     "Please enter your email",
                                             },
+                                            pattern:
+                                                /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
                                         })}
                                     />
                                 </InputGroup>
                                 <FormErrorMessage>
-                                    {errors.email && errors.email.message}
+                                    {errors.email &&
+                                        errors.email.type === "required" && (
+                                            <p>Please enter your email.</p>
+                                        )}
+                                    {errors.email &&
+                                        errors.email.type === "pattern" && (
+                                            <p>Please enter a valid email.</p>
+                                        )}
                                 </FormErrorMessage>
                             </FormControl>
                             {/* Password Input */}
@@ -228,7 +236,7 @@ const SignUp = () => {
                                             pattern: {
                                                 value: /^(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
                                                 message:
-                                                    "Password should be minimum of 8 numbers it must contain  one number and  one special character",
+                                                    "Password must contain  one number and  one special character",
                                             },
                                         })}
                                     />

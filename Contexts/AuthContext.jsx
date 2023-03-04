@@ -25,7 +25,6 @@ export default function AuthContext({ children }) {
 
     // Signin function
     const signIn = (values) => {
-        
         const handleSuccessFullSignIn = (data) => {
             success({ title: data && data.message });
             setLoading(false);
@@ -116,8 +115,6 @@ export default function AuthContext({ children }) {
                     navigate.push("/auth/reset_password");
                 }
 
-                // if data was not successful
-
                 // // if data was  successful
                 data && data.success
                     ? VerifySuccess(data)
@@ -161,6 +158,38 @@ export default function AuthContext({ children }) {
                 setLoading(false);
             });
     };
+    // Sign Up
+
+    const signUp = (values) => {
+        const handleSuccessFullSignIn = (data) => {
+            success({ title: data && data.message });
+            setLoading(false);
+            navigate.push("/auth/login");
+        };
+        setLoading(true);
+        fetch("https://monmouth.onrender.com/v1/user/signUp", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+
+                data && data.success
+                    ? handleSuccessFullSignIn(data)
+                    : error({ title: data && data.message });
+
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.log(err);
+                error({ title: `${err}` });
+                setLoading(false);
+            });
+    };
 
     const Logout = () => {
         navigate.push("/auth/login");
@@ -169,6 +198,7 @@ export default function AuthContext({ children }) {
     //     export values
     const authValues = {
         signIn,
+        signUp,
         forgetPassword,
         verify,
         user,

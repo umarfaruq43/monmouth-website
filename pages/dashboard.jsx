@@ -6,9 +6,13 @@ const dashboard = () => {
     return (
         <Layout title={"Monmouth Cards"}>
             <Dashboard />
-            
         </Layout>
     );
 };
 
-export default dashboard;
+Dashboard.getInitialProps = async (props) => {
+    console.info("##### Congratulations! You are authorized! ######", props);
+    return {};
+};
+
+export default withPrivateRoute(Dashboard);;

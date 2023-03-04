@@ -13,8 +13,8 @@ const Home = () => {
 
     return (
         <Layout title={"Monmouth Cards"}>
-            {/* <Dashboard /> */}
-            <Login />
+            <Dashboard />
+            {/* <Login /> */}
         </Layout>
     );
 };
