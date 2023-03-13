@@ -18,28 +18,28 @@ export const COLUMN = [
     {
         Header: "",
         accessor: "images",
-        // Cell: (values) => {
-        //     const img = values && values.row.original.images.split(",");
-        //     console.log("image", img);
-        //     return (
-        //         <>
-        //             {values && values.row.original.images ? (
-        //                 <Image
-        //                     src={values && img[0]}
-        //                     alt=""
-        //                     w="48px"
-        //                     h="48px"
-        //                     minW="48px"
-        //                     borderRadius={"10px"}
-        //                     cursor="pointer"
-        //                     objectFit={"cover"}
-        //                 />
-        //             ) : (
-        //                 "- -"
-        //             )}
-        //         </>
-        //     );
-        // },
+        Cell: (values) => {
+            const img = values && values.row.original.images.split(",");
+            console.log("image", img);
+            return (
+                <Box cursor={"pointer"}>
+                    {values && values.row.original.images ? (
+                        <Image
+                            src={values && img[0]}
+                            alt=""
+                            w="48px"
+                            h="48px"
+                            minW="48px"
+                            borderRadius={"10px"}
+                            cursor="pointer"
+                            objectFit={"cover"}
+                        />
+                    ) : (
+                        "- -"
+                    )}
+                </Box>
+            );
+        },
     },
     {
         Header: "TITLE",

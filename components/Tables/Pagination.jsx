@@ -15,13 +15,15 @@ import {
     Button,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import React, { useMemo, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { useTable, usePagination } from "react-table";
+import { CardContext } from "../../Contexts/CardContext";
 import { COLUMN } from "./columns";
 
 import Form from "./Form";
 
 const Pagination = ({ cards }) => {
+    const { fetching } = useContext(CardContext);
     const router = useRouter();
     const columns = useMemo(() => COLUMN, []);
     const data = useMemo(() => cards, [cards]);
@@ -53,8 +55,8 @@ const Pagination = ({ cards }) => {
     const pageLength = Array.from(Array(pageCount), (_, index) => index + 1);
     return (
         <Box className="tab" minH="50vh">
-            {cards.length < 1 ? (
-                <Box> Cards not Available</Box>
+            {fetching ? (
+                <Box> Fetching Cards</Box>
             ) : (
                 <Box>
                     <TableContainer>
@@ -93,108 +95,121 @@ const Pagination = ({ cards }) => {
                                     );
                                 })}
                             </Thead>
-                            <Tbody {...getTableBodyProps()}>
-                                {page.map((row, idx) => {
-                                    prepareRow(row);
+                            {fetching ? (
+                                "Fetching data....."
+                            ) : (
+                                <Tbody {...getTableBodyProps()}>
+                                    {page.map((row, idx) => {
+                                        prepareRow(row);
 
-                                    return (
-                                        <>
-                                            <Tr
-                                                key={idx}
-                                                {...row.getRowProps()}
-                                                display=""
-                                                borderColor={"brand.primary"}
-                                                borderLeft={
-                                                    currentView
-                                                        ? "1px solid #6454D6"
-                                                        : "none"
-                                                }
-                                            >
-                                                {row.cells.map((cell, idx) => {
-                                                    return (
-                                                        <>
-                                                            <Td
-                                                                onClick={() => {
-                                                                    if (
-                                                                        cell
-                                                                            .column
-                                                                            .Header ===
-                                                                        "MARKETPLACE"
-                                                                    ) {
-                                                                        setViewCardPrice(
-                                                                            cell
-                                                                                .row
-                                                                                .original
-                                                                        );
-                                                                        setCurrentView(
-                                                                            !currentView
-                                                                        );
-                                                                    } else if (
-                                                                        cell
-                                                                            .column
-                                                                            .Header ===
-                                                                            "TITLE" ||
-                                                                        cell
-                                                                            .column
-                                                                            .Header ===
-                                                                            ""
-                                                                    ) {
-                                                                        router.push(
-                                                                            `/single_card/${cell.row.original.id}`
-                                                                        );
-                                                                    }
-                                                                }}
-                                                                fontSize={
-                                                                    "14px"
-                                                                }
-                                                                fontWeight={600}
-                                                                key={idx}
-                                                                {...cell.getCellProps()}
-                                                            >
-                                                                {cell.render(
-                                                                    "Cell"
-                                                                )}
-                                                            </Td>
-                                                        </>
-                                                    );
-                                                })}
-                                            </Tr>
-
-                                            {currentView && viewCardPrice ? (
+                                        return (
+                                            <>
                                                 <Tr
-                                                    bg="brand.grey_4"
-                                                    borderLeft="2px solid #8173de"
-                                                    boxShadow={
-                                                        "0px 4px 20px rgba(18, 18, 18, 0.03)"
+                                                    key={idx}
+                                                    {...row.getRowProps()}
+                                                    display=""
+                                                    borderColor={
+                                                        "brand.primary"
+                                                    }
+                                                    borderLeft={
+                                                        currentView
+                                                            ? "1px solid #6454D6"
+                                                            : "none"
                                                     }
                                                 >
-                                                    <Td
-                                                        colSpan={"6"}
-                                                        pos="relative"
-                                                    >
-                                                        <Box
-                                                            py="24px"
-                                                            px="16px"
-                                                            w="100%"
-                                                            position=""
-                                                            left={0}
-                                                            top={1}
-                                                            // minH="212px"
-                                                            zIndex={1}
-                                                            //    border={2}
-                                                            //    borderColor='#fff'
-                                                        >
-                                                            <Form />
-                                                        </Box>
-                                                    </Td>
+                                                    {row.cells.map(
+                                                        (cell, idx) => {
+                                                            return (
+                                                                <>
+                                                                    <Td
+                                                                        onClick={() => {
+                                                                            if (
+                                                                                cell
+                                                                                    .column
+                                                                                    .Header ===
+                                                                                "MARKETPLACE"
+                                                                            ) {
+                                                                                setViewCardPrice(
+                                                                                    cell
+                                                                                        .row
+                                                                                        .original
+                                                                                );
+                                                                                setCurrentView(
+                                                                                    !currentView
+                                                                                );
+                                                                            } else if (
+                                                                                cell
+                                                                                    .column
+                                                                                    .Header ===
+                                                                                    "TITLE" ||
+                                                                                cell
+                                                                                    .column
+                                                                                    .Header ===
+                                                                                    ""
+                                                                            ) {
+                                                                                router.push(
+                                                                                    `/single_card/${cell.row.original.id}`
+                                                                                );
+                                                                            }
+                                                                        }}
+                                                                        fontSize={
+                                                                            "14px"
+                                                                        }
+                                                                        fontWeight={
+                                                                            600
+                                                                        }
+                                                                        key={
+                                                                            idx
+                                                                        }
+                                                                        {...cell.getCellProps()}
+                                                                    >
+                                                                        {cell.render(
+                                                                            "Cell"
+                                                                        )}
+                                                                    </Td>
+                                                                </>
+                                                            );
+                                                        }
+                                                    )}
                                                 </Tr>
-                                            ) : (
-                                                ""
-                                            )}
-                                        </>
-                                    );
-                                })}
-                            </Tbody>
+
+                                                {currentView &&
+                                                viewCardPrice ? (
+                                                    <Tr
+                                                        bg="brand.grey_4"
+                                                        borderLeft="2px solid #8173de"
+                                                        boxShadow={
+                                                            "0px 4px 20px rgba(18, 18, 18, 0.03)"
+                                                        }
+                                                    >
+                                                        <Td
+                                                            colSpan={"6"}
+                                                            pos="relative"
+                                                        >
+                                                            <Box
+                                                                py="24px"
+                                                                px="16px"
+                                                                w="100%"
+                                                                position=""
+                                                                left={0}
+                                                                top={1}
+                                                                // minH="212px"
+                                                                zIndex={1}
+                                                                //    border={2}
+                                                                //    borderColor='#fff'
+                                                            >
+                                                                <Form />
+                                                            </Box>
+                                                        </Td>
+                                                    </Tr>
+                                                ) : (
+                                                    ""
+                                                )}
+                                            </>
+                                        );
+                                    })}
+                                </Tbody>
+                            )}
                         </Table>
                     </TableContainer>
 
