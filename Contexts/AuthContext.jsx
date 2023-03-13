@@ -12,23 +12,16 @@ export default function AuthContext({ children }) {
     const [user, setUser] = useState(false);
     const [reset, setReset] = useState(false);
     const [loading, setLoading] = useState(false);
-
-    // SignUp function
-    const createUser = (values) => {
-        setLoading(true);
-        setTimeout(() => {
-            success({ title: "User created succesfully" });
-            setLoading(false);
-            navigate.push("/auth/login");
-        }, 3000);
-    };
+    
 
     // Signin function
     const signIn = (values) => {
         const handleSuccessFullSignIn = (data) => {
             success({ title: data && data.message });
             setLoading(false);
-            navigate.push("/dashboard");
+            localStorage.setItem("token", data && data.data.accessToken);
+            localStorage.setItem("adminDetails", data && data.data.admin);
+            navigate.push("/");
         };
         setLoading(true);
         fetch("https://monmouth.onrender.com/v1/user/signIn", {
@@ -191,7 +184,10 @@ export default function AuthContext({ children }) {
             });
     };
 
+ 
+
     const Logout = () => {
+        localStorage.removeItem("token");
         navigate.push("/auth/login");
     };
 
@@ -208,7 +204,7 @@ export default function AuthContext({ children }) {
         reset,
         setReset,
         Logout,
-        createUser,
+      
     };
     return <Auth.Provider value={authValues}>{children}</Auth.Provider>;
 }

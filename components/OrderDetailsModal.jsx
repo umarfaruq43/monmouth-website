@@ -19,14 +19,14 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import { format } from "date-fns";
 import { CustomToast } from "./Alert";
 const OrderDetailsModal = ({ isOpen, onOpen, onClose, details }) => {
-    const { success } = CustomToast();
+    const { success, warning } = CustomToast();
 
-    const month = format(new Date(details && details.date), "MMM");
-    const fullMonth = format(new Date(details && details.date), "MMMMMM");
-    const time = format(new Date(details && details.date), "p");
-    const year = format(new Date(details && details.date), "yyy");
-    const day = format(new Date(details && details.date), "dd");
-    const fullDay = format(new Date(details && details.date), "do");
+    const month = format(new Date(details && details.created_at), "MMM");
+    const fullMonth = format(new Date(details && details.created_at), "MMMMMM");
+    const time = format(new Date(details && details.created_at), "p");
+    const year = format(new Date(details && details.created_at), "yyy");
+    const day = format(new Date(details && details.created_at), "dd");
+    const fullDay = format(new Date(details && details.created_at), "do");
 
     return (
         <>
@@ -41,7 +41,7 @@ const OrderDetailsModal = ({ isOpen, onOpen, onClose, details }) => {
                                 <Flex align="center">
                                     <Flex maxW="361px" gap="16px">
                                         <Image
-                                            src={details && details.image}
+                                            src={details && details.image ? "" : ""}
                                             alt={`${
                                                 details && details.title
                                             } image`}
@@ -60,9 +60,9 @@ const OrderDetailsModal = ({ isOpen, onOpen, onClose, details }) => {
                                             className="sofia"
                                             noOfLines={2}
                                         >
-                                            {/* {details && details.card_title} */}
-                                            2021 Elite #19 Isaiah Stewart Asia
-                                            Hyper Gold SGC 10
+                                            {details.card_title 
+                                                ? details.card_title
+                                                : "Name of Card Not available"}
                                         </Text>
                                     </Flex>
                                     <Flex align="center" gap="9px">
@@ -77,7 +77,6 @@ const OrderDetailsModal = ({ isOpen, onOpen, onClose, details }) => {
                                             color="brand.lightBlack"
                                             className="sofia"
                                         >
-                                            {/* 9:30am, 10 Dec, 2022 */}
                                             {`${time}, ${day}, ${month}, ${year}`}
                                         </Text>
                                     </Flex>
@@ -138,7 +137,12 @@ const OrderDetailsModal = ({ isOpen, onOpen, onClose, details }) => {
                                         className="sofia"
                                         fontSize="16px"
                                     >
-                                        {details && details.name}
+                                        {details.customer
+                                            ? details.customer.first_name
+                                            : "-"}{" "}
+                                        {details.customer
+                                            ? details.customer.last_name
+                                            : " -"}
                                     </Text>
                                 </Flex>
                                 {/* ************************ */}
@@ -156,7 +160,16 @@ const OrderDetailsModal = ({ isOpen, onOpen, onClose, details }) => {
                                     >
                                         Item Status:
                                     </Text>
-                                    <Box>
+
+                                    <Text
+                                        color="brand.black"
+                                        fontWeight="600"
+                                        className="sofia"
+                                        fontSize="16px"
+                                    >
+                                        Not Available
+                                    </Text>
+                                    {/* <Box>
                                         {details &&
                                         details.status === "delay" ? (
                                             <Flex
@@ -282,7 +295,7 @@ const OrderDetailsModal = ({ isOpen, onOpen, onClose, details }) => {
                                         ) : (
                                             ""
                                         )}
-                                    </Box>
+                                    </Box> */}
                                 </Flex>
 
                                 {/* ********************** */}
@@ -306,7 +319,7 @@ const OrderDetailsModal = ({ isOpen, onOpen, onClose, details }) => {
                                         className="sofia"
                                         fontSize="24px"
                                     >
-                                        {details && details.price}
+                                        ${details && details.subtotal_price}
                                     </Text>
                                 </Flex>
                             </Box>
@@ -322,7 +335,9 @@ const OrderDetailsModal = ({ isOpen, onOpen, onClose, details }) => {
                                     _active={{ bg: "brand.primary" }}
                                     onClick={() => {
                                         onClose();
-                                        success({ message: "Card Unsold" });
+                                        warning({
+                                            title: "Card Unsold Feature Not available",
+                                        });
                                     }}
                                 >
                                     {" "}

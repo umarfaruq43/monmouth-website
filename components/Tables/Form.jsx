@@ -34,7 +34,7 @@ const Form = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { ebay, amazon, shopify, walmart, my_slabs, alt, becett } =
         marketPrice;
-    console.log(ebay);
+    // console.log(ebay);
     const handleChange = (e) => {
         const { value, name } = e.target;
         setMarketPrice({ ...marketPrice, [name]: value });

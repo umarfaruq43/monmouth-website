@@ -61,7 +61,7 @@ const PersonalInfo = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
-        console.log(userDetails);
+        // console.log(userDetails);
         setTimeout(() => {
             setLoading(false);
             success({ title: "Details Saved" });

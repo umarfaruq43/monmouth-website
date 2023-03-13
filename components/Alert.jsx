@@ -38,7 +38,7 @@ export const CustomToast = () => {
                     // maxW={closeAble ? "556px" : "406.15px"}
                 >
                     <Flex gap={["12px", "18px"]} w="100%" align={"center"}>
-                        <Box maxW={"624px"} w="654px">
+                        <Box maxW={"624px"} w={["654px"]}>
                             <Text
                                 fontWeight={"600"}
                                 // fontSize={[ "sm" : "lg"]}

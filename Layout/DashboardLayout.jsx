@@ -47,6 +47,7 @@ import { MdNoteAlt } from "react-icons/md";
 import { NextLink } from "next/link";
 import { BiLogOut } from "react-icons/bi";
 import NavNotification from "../components/NavNotification";
+import { useAuthContext } from "../Contexts/AuthContext";
 
 const LinkItems = [
     { name: "Dashboard", icon: FaEnvelopeOpen, active: "/" },
@@ -60,6 +61,7 @@ const LinkItems = [
 
 export default function DashboardLayout({ children, passedActive }) {
     const router = useRouter();
+
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <Box minH="100vh" bg={"brand.thickGray"}>
@@ -152,13 +154,14 @@ const SidebarContent = ({ onClose, passedActive, ...rest }) => {
 
 const NavItem = ({ icon, children, link, passedActive, ...rest }) => {
     const router = useRouter();
-    console.log(children);
+    
+    const { Logout } = useAuthContext();
     return (
         <Link
             as={Box}
             onClick={() => {
                 if (children === "Logout") {
-                    router.push("/auth/login");
+                    Logout();
                 } else {
                     router.push(link.active);
                 }

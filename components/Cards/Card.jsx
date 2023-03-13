@@ -1,15 +1,18 @@
 import { Badge, Box, Button, Flex, SelectField, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import BasicTable from "../Tables/BasicTable";
 import Pagination from "../Tables/Pagination";
 import { cards } from "../../cards";
+import { CardContext } from "../../Contexts/CardContext";
 
 const Card = () => {
-    let soldCard = cards.slice(0, 5);
-    let pendingCard = cards.slice(0, 3);
+    let soldCard = [];
+    let pendingCard = [];
+    let listedCard = [];
+
     const [active, setActive] = useState(1);
-    // console.log(active);
+    const { allCards } = useContext(CardContext);
 
     return (
         <Box>
@@ -195,12 +198,12 @@ const Card = () => {
                     <TabPanels p="24px" bgColor="brand.white">
                         <TabPanel>
                             {/* All cards */}
-                            <Pagination cards={cards} />
+                            <Pagination cards={allCards && allCards} />
                         </TabPanel>
                         <TabPanel>
                             {/* Listed  cards */}
 
-                            <Pagination cards={cards} />
+                            <Pagination cards={listedCard} />
                         </TabPanel>
 
                         <TabPanel>

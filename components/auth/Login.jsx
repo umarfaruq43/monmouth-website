@@ -121,6 +121,7 @@ const Login = () => {
                                 </FormLabel>
                                 <InputGroup>
                                     <Input
+                                        autoComplete="current-password"
                                         _active={{
                                             borderColor: "brand.primary",
                                         }}

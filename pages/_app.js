@@ -7,10 +7,11 @@ import "../styles/globals.css";
 import theme from "../theme";
 import "nprogress/nprogress.css";
 import NProgress from "nprogress";
+import { CardProvider } from "../Contexts/CardContext";
 
 export default function App({ Component, pageProps }) {
     const router = useRouter();
-    
+
     useEffect(() => {
         const handleRouteStart = () => NProgress.start();
         const handleRouteDone = () => NProgress.done();
@@ -27,9 +28,11 @@ export default function App({ Component, pageProps }) {
         <ChakraProvider theme={theme}>
             <CSSReset />
             <ToastAlert>
-                <AuthContext>
-                    <Component {...pageProps} />
-                </AuthContext>
+                <CardProvider>
+                    <AuthContext>
+                        <Component {...pageProps} />
+                    </AuthContext>
+                </CardProvider>
             </ToastAlert>
         </ChakraProvider>
     );

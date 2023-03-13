@@ -9,6 +9,8 @@ import CardIllustaration from "./CardIllustaration";
 import PastSales from "./PastSales";
 
 const SingleCard = ({ currentCard }) => {
+    
+    console.log("currentCard", currentCard);
     return (
         <Box>
             <Box mb="24px">
@@ -18,16 +20,20 @@ const SingleCard = ({ currentCard }) => {
             </Box>
 
             <Box p={["12px", , "24px"]} bgColor="brand.white">
-                <BreadCrumb slug={currentCard && currentCard.title} />
+                <BreadCrumb slug={currentCard && currentCard.groupName} />
                 <Box py="33px">
-                    <CardIllustaration />
+                    <CardIllustaration
+                        cardDetails={currentCard && currentCard}
+                    />
                 </Box>
                 <Box mt="33px">
-                    <CardDetails />
+                    <CardDetails
+                        currentCardDetails={currentCard && currentCard}
+                    />
                 </Box>
 
                 <Box mt="33px">
-                    <PastSales />
+                    <PastSales cardDetails={currentCard && currentCard} />
                 </Box>
             </Box>
         </Box>

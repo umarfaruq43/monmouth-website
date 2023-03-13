@@ -63,7 +63,7 @@ const Password = () => {
     };
     const handleSubmit = () => {
         setLoading(true);
-        // console.log(userDetails);
+        console.log(userDetails);
         setTimeout(() => {
             setLoading(false);
             success({ title: "Details Updated" });

@@ -115,57 +115,63 @@ export default function PastSalesTable() {
         useTable({ columns, data });
 
     return (
-        <Table {...getTableProps()} type="unstyled">
-            <Thead
-                bgColor="brand.light_1"
-                h="64px"
-                color="brand.lightBlack"
-                className="raleway"
-                borderRadius={"4px"}
-            >
-                {headerGroups.map((headerGroup, i) => (
-                    <Tr {...headerGroup.getHeaderGroupProps()} key={i}>
-                        {headerGroup.headers.map((column, i) => (
-                            <Th
-                                className="sofia"
-                                fontSize="14px"
-                                fontWeight={400}
-                                key={i}
-                                {...column.getHeaderProps()}
-                                textAlign="center"
-                                color="brand.black"
-                            >
-                                {column.render("Header")}
-                            </Th>
-                        ))}
-                    </Tr>
-                ))}
-            </Thead>
-            <Tbody {...getTableBodyProps()}>
-                {rows.map((row, i) => {
-                    prepareRow(row);
-                    return (
-                        <Tr {...row.getRowProps()} key={i}>
-                            {row.cells.map((cell) => {
-                                return (
-                                    <Td
+        <Box>
+            {true ? (
+                <Box>API not available </Box>
+            ) : (
+                <Table {...getTableProps()} type="unstyled">
+                    <Thead
+                        bgColor="brand.light_1"
+                        h="64px"
+                        color="brand.lightBlack"
+                        className="raleway"
+                        borderRadius={"4px"}
+                    >
+                        {headerGroups.map((headerGroup, i) => (
+                            <Tr {...headerGroup.getHeaderGroupProps()} key={i}>
+                                {headerGroup.headers.map((column, i) => (
+                                    <Th
                                         className="sofia"
-                                        color="brand.black"
-                                        key={i}
-                                        {...cell.getCellProps()}
-                                        textAlign="center"
-                                        maxW="312px"
-                                        fontWeight={"600"}
                                         fontSize="14px"
+                                        fontWeight={400}
+                                        key={i}
+                                        {...column.getHeaderProps()}
+                                        textAlign="center"
+                                        color="brand.black"
                                     >
-                                        {cell.render("Cell")}
-                                    </Td>
-                                );
-                            })}
-                        </Tr>
-                    );
-                })}
-            </Tbody>
-        </Table>
+                                        {column.render("Header")}
+                                    </Th>
+                                ))}
+                            </Tr>
+                        ))}
+                    </Thead>
+                    <Tbody {...getTableBodyProps()}>
+                        {rows.map((row, i) => {
+                            prepareRow(row);
+                            return (
+                                <Tr {...row.getRowProps()} key={i}>
+                                    {row.cells.map((cell) => {
+                                        return (
+                                            <Td
+                                                className="sofia"
+                                                color="brand.black"
+                                                key={i}
+                                                {...cell.getCellProps()}
+                                                textAlign="center"
+                                                maxW="312px"
+                                                fontWeight={"600"}
+                                                fontSize="14px"
+                                            >
+                                                {cell.render("Cell")}
+                                            </Td>
+                                        );
+                                    })}
+                                </Tr>
+                            );
+                        })}
+                    </Tbody>
+                </Table>
+            )}
+        </Box>
     );
 }

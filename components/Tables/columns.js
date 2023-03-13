@@ -18,25 +18,28 @@ export const COLUMN = [
     {
         Header: "",
         accessor: "images",
-        Cell: (values) => {
-            return (
-                <>
-                    {values && values.row.original.images ? (
-                        <Image
-                            src={values && values.row.original.images}
-                            alt=""
-                            w="48px"
-                            h="48px"
-                            minW="48px"
-                            borderRadius={"10px"}
-                            cursor="pointer"
-                        />
-                    ) : (
-                        "- -"
-                    )}
-                </>
-            );
-        },
+        // Cell: (values) => {
+        //     const img = values && values.row.original.images.split(",");
+        //     console.log("image", img);
+        //     return (
+        //         <>
+        //             {values && values.row.original.images ? (
+        //                 <Image
+        //                     src={values && img[0]}
+        //                     alt=""
+        //                     w="48px"
+        //                     h="48px"
+        //                     minW="48px"
+        //                     borderRadius={"10px"}
+        //                     cursor="pointer"
+        //                     objectFit={"cover"}
+        //                 />
+        //             ) : (
+        //                 "- -"
+        //             )}
+        //         </>
+        //     );
+        // },
     },
     {
         Header: "TITLE",
@@ -44,7 +47,7 @@ export const COLUMN = [
         Cell: (values) => {
             return (
                 <Box maxW="240px">
-                    {values && values.row.original.title ? (
+                    {values && values.row.original.groupName ? (
                         <Text
                             noOfLines={1}
                             fontWeight="600"
@@ -53,7 +56,7 @@ export const COLUMN = [
                             className="sofia"
                             cursor="pointer"
                         >
-                            {values.row.original.title}{" "}
+                            {values.row.original.groupName}{" "}
                         </Text>
                     ) : (
                         "- -"
@@ -66,8 +69,12 @@ export const COLUMN = [
     {
         Header: "DATE ADDED",
         accessor: "date_added",
-        Cell: ({ value }) => {
-            return format(new Date(value), "yyyy-mm-dd");
+        Cell: (value) => {
+            // console.log("date", value.row.original.year);
+            return format(
+                new Date(value && value.row.original.year),
+                "yyyy-mm-dd"
+            );
         },
     },
     {
@@ -156,13 +163,13 @@ export const COLUMN = [
         Cell: (values) => {
             return (
                 <>
-                    {values && values.row.original.estimated_value !== null ? (
+                    {values && values.row.original.price ? (
                         <Text
                             fontWeight={"500"}
                             color="brand.success"
                             textAlign="center"
                         >
-                            {values.row.original.estimated_value}
+                            ${values.row.original.price.split(",")[0]}
                         </Text>
                     ) : (
                         <Text textAlign="center"> - -</Text>
@@ -177,7 +184,7 @@ export const COLUMN = [
         Cell: (values) => {
             return (
                 <>
-                    {values && values.row.original.status === null ? (
+                    {values && values.row.original.status !== true ? (
                         <Text
                             fontWeight={"400"}
                             className="sofia"

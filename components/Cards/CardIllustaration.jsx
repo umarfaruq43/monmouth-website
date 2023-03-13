@@ -5,7 +5,9 @@ import EbayForm from "./EbayForm";
 import Shopify from "./Shopify";
 import Walmart from "./Walmart";
 
-const CardIllustaration = () => {
+const CardIllustaration = ({ cardDetails }) => {
+    const img = cardDetails && cardDetails.images.split(",");
+    console.log(img);
     return (
         <Box>
             <Flex flexDir={["column", , "row"]} gap="26px">
@@ -14,7 +16,7 @@ const CardIllustaration = () => {
                     <Flex gap="16px">
                         <Flex flexDir="column" justify="center" gap="16px">
                             <Image
-                                src="/card.png"
+                                src={img && img[0]}
                                 alt="card"
                                 w="100%"
                                 h="100%"
@@ -25,7 +27,7 @@ const CardIllustaration = () => {
                             />
 
                             <Image
-                                src="/backCard.png"
+                                src={img && img[1]}
                                 alt="card"
                                 w="100%"
                                 h="100%"
@@ -37,7 +39,7 @@ const CardIllustaration = () => {
                         </Flex>
                         <Box>
                             <Image
-                                src="/card.png"
+                                src={img && img[0]}
                                 alt="card"
                                 w="100%"
                                 h="100%"
@@ -57,8 +59,7 @@ const CardIllustaration = () => {
                             // className="sofia"
                             noOfLines={2}
                         >
-                            2003 Upper Deck #13 LeBron James Phenomenal
-                            Beginnings PSA 10
+                            {cardDetails && cardDetails.groupName}
                         </Text>
                         <Box>
                             {true ? (
@@ -68,7 +69,8 @@ const CardIllustaration = () => {
                                     px="31px"
                                     py="8px"
                                 >
-                                    Pending
+                                    {/* Pending */}
+                                    Feature not available
                                 </Button>
                             ) : (
                                 <Button
@@ -92,7 +94,7 @@ const CardIllustaration = () => {
                         flexWrap={"wrap"}
                         gap="20px"
                     >
-                        <EbayForm />
+                        <EbayForm currentCardDetails={cardDetails} />
 
                         <Box
                             border="1px"
@@ -101,7 +103,7 @@ const CardIllustaration = () => {
                             display={["none", , "block"]}
                         ></Box>
 
-                        <Amazon />
+                        <Amazon currentCardDetails={cardDetails} />
 
                         <Box
                             border="1px"
@@ -110,7 +112,7 @@ const CardIllustaration = () => {
                             display={["none", , "block"]}
                         ></Box>
 
-                        <Shopify />
+                        <Shopify currentCardDetails={cardDetails} />
 
                         <Box
                             border="1px"
@@ -118,7 +120,7 @@ const CardIllustaration = () => {
                             borderColor="brand.grey_3"
                             display={["none", , "block"]}
                         ></Box>
-                        <Walmart />
+                        <Walmart currentCardDetails={cardDetails} />
                     </Flex>
                 </Box>
             </Flex>

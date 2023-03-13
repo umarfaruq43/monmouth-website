@@ -1,5 +1,6 @@
 import { Box, Flex, Image, SimpleGrid, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
+import { useAuthContext } from "../../Contexts/AuthContext";
 import DashboardLayout from "../../Layout/DashboardLayout";
 import { LineChart } from "../Analytics/LineChart";
 
@@ -8,6 +9,7 @@ import SortingTable from "../Tables/SortingTable";
 import CardDetails from "./CardDetails";
 
 const Dashboard = () => {
+  
     return (
         <DashboardLayout passedActive="/">
             <Box>

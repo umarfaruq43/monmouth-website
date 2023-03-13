@@ -38,7 +38,7 @@ export const PurchaseCol = [
                             />
                         </Box>
                     ) : (
-                        "- -"
+                    "Image Nil"
                     )}
                 </>
             );
@@ -46,11 +46,11 @@ export const PurchaseCol = [
     },
     {
         Header: "",
-        accessor: "title",
+        accessor: "cardName",
         Cell: (values) => {
             return (
                 <Box>
-                    {values && values.row.original ? (
+                    {values && values.row.original.cardName ? (
                         <Text
                             w="100%"
                             fontWeight="600"
@@ -65,7 +65,7 @@ export const PurchaseCol = [
                             {values.row.original.card_title}
                         </Text>
                     ) : (
-                        "- -"
+                        "Card Name Nil"
                     )}
                 </Box>
             );
@@ -75,15 +75,19 @@ export const PurchaseCol = [
     {
         Header: "DATE ADDED",
         accessor: "date",
-        Cell: ({ value }) => {
-            return format(new Date(value), "yyyy-mm-dd");
+        Cell: (values) => {
+            return format(
+                new Date(values.row.original.created_at),
+                "yyyy-mm-dd"
+            );
         },
     },
 
     {
         Header: "CUSTOMER NAME",
-        accessor: "customer_name",
+        accessor: "name",
         Cell: (values) => {
+            console.log(values);
             return (
                 <Box>
                     {values && values.row.original ? (
@@ -96,7 +100,12 @@ export const PurchaseCol = [
                             cursor="pointer"
                             noOfLines={1}
                         >
-                            {values.row.original.name}
+                            {values.row.original.customer
+                                ? values.row.original.customer.first_name
+                                : "-"}{" "}
+                            {values.row.original.customer
+                                ? values.row.original.customer.last_name
+                                : " -"}
                         </Text>
                     ) : (
                         "- -"
@@ -117,7 +126,7 @@ export const PurchaseCol = [
                         color="brand.success"
                         textAlign="center"
                     >
-                        {values.row.original.price}
+                        ${values.row.original.total_price}
                     </Text>
                 </>
             );
@@ -129,121 +138,126 @@ export const PurchaseCol = [
         accessor: "status",
         Cell: (values) => {
             return (
-                <>
-                    {values && values.row.original.status === "delay" ? (
-                        <Flex
-                            fontWeight={"600"}
-                            color="brand.black"
-                            bgColor="brand.light_1"
-                            px="16px"
-                            py="8px"
-                            w="100%"
-                            maxW="192px"
-                            borderRadius="5px"
-                            className="sofia"
-                            mx="auto"
-                            align="center"
-                            justify="center"
-                        >
-                            <Box
-                                w="7px"
-                                h="7px"
-                                display={"inline-block"}
-                                bgColor="brand.primary"
-                                borderRadius={"full"}
-                                mr="10px"
-                            ></Box>
-                            <Text>Offer Awaiting Review</Text>
-                        </Flex>
-                    ) : (
-                        ""
-                    )}
-                    {values && values.row.original.status === "success" ? (
-                        <Flex
-                            fontWeight={"600"}
-                            color="brand.black"
-                            bgColor="brand.dimSuccess"
-                            px="16px"
-                            py="8px"
-                            w="100%"
-                            maxW="192px"
-                            borderRadius="5px"
-                            className="sofia"
-                            mx="auto"
-                            align="center"
-                            justify="center"
-                        >
-                            <Box
-                                w="7px"
-                                h="7px"
-                                display={"inline-block"}
-                                borderRadius={"full"}
-                                bgColor="brand.success"
-                                mr="10px"
-                            ></Box>
-                            <Text>Paid & Shipped </Text>
-                        </Flex>
-                    ) : (
-                        ""
-                    )}
-                    {values && values.row.original.status === "unpaid" ? (
-                        <Flex
-                            fontWeight={"600"}
-                            color="brand.black"
-                            bgColor="brand.fadeError"
-                            px="16px"
-                            py="8px"
-                            w="100%"
-                            maxW="192px"
-                            borderRadius="5px"
-                            className="sofia"
-                            mx="auto"
-                            align="center"
-                            justify="center"
-                        >
-                            <Box
-                                w="7px"
-                                h="7px"
-                                display={"inline-block"}
-                                borderRadius={"full"}
-                                bgColor="brand.accent"
-                                mr="10px"
-                            ></Box>
-                            <Text>Unpaid </Text>
-                        </Flex>
-                    ) : (
-                        ""
-                    )}
+                <Box>
+                    <>
+                        {/* // <>
+                //     {values && values.row.original.status === "delay" ? (
+                //         <Flex
+                //             fontWeight={"600"}
+                //             color="brand.black"
+                //             bgColor="brand.light_1"
+                //             px="16px"
+                //             py="8px"
+                //             w="100%"
+                //             maxW="192px"
+                //             borderRadius="5px"
+                //             className="sofia"
+                //             mx="auto"
+                //             align="center"
+                //             justify="center"
+                //         >
+                //             <Box
+                //                 w="7px"
+                //                 h="7px"
+                //                 display={"inline-block"}
+                //                 bgColor="brand.primary"
+                //                 borderRadius={"full"}
+                //                 mr="10px"
+                //             ></Box>
+                //             <Text>Offer Awaiting Review</Text>
+                //         </Flex>
+                //     ) : (
+                //         ""
+                //     )}
+                //     {values && values.row.original.status === "success" ? (
+                //         <Flex
+                //             fontWeight={"600"}
+                //             color="brand.black"
+                //             bgColor="brand.dimSuccess"
+                //             px="16px"
+                //             py="8px"
+                //             w="100%"
+                //             maxW="192px"
+                //             borderRadius="5px"
+                //             className="sofia"
+                //             mx="auto"
+                //             align="center"
+                //             justify="center"
+                //         >
+                //             <Box
+                //                 w="7px"
+                //                 h="7px"
+                //                 display={"inline-block"}
+                //                 borderRadius={"full"}
+                //                 bgColor="brand.success"
+                //                 mr="10px"
+                //             ></Box>
+                //             <Text>Paid & Shipped </Text>
+                //         </Flex>
+                //     ) : (
+                //         ""
+                //     )}
+                //     {values && values.row.original.status === "unpaid" ? (
+                //         <Flex
+                //             fontWeight={"600"}
+                //             color="brand.black"
+                //             bgColor="brand.fadeError"
+                //             px="16px"
+                //             py="8px"
+                //             w="100%"
+                //             maxW="192px"
+                //             borderRadius="5px"
+                //             className="sofia"
+                //             mx="auto"
+                //             align="center"
+                //             justify="center"
+                //         >
+                //             <Box
+                //                 w="7px"
+                //                 h="7px"
+                //                 display={"inline-block"}
+                //                 borderRadius={"full"}
+                //                 bgColor="brand.accent"
+                //                 mr="10px"
+                //             ></Box>
+                //             <Text>Unpaid </Text>
+                //         </Flex>
+                //     ) : (
+                //         ""
+                //     )}
 
-                    {values && values.row.original.status === "pending" ? (
-                        <Flex
-                            fontWeight={"600"}
-                            color="brand.black"
-                            bgColor="brand.warningFade"
-                            px="6px"
-                            py="8px"
-                            w="100%"
-                            maxW="199px"
-                            borderRadius="5px"
-                            className="sofia"
-                            mx="auto"
-                            align="center"
-                            justify="center"
-                        >
-                            <Box
-                                w="7px"
-                                h="7px"
-                                // display={"inline-block"}
-                                borderRadius={"full"}
-                                bgColor="brand.warning"
-                                mr="10px"
-                            ></Box>
-                            <Text>Paid & Awaiting Shipment </Text>
-                        </Flex>
-                    ) : (
-                        ""
-                    )}
-                </>
+                //     {values && values.row.original.status === "pending" ? (
+                //         <Flex
+                //             fontWeight={"600"}
+                //             color="brand.black"
+                //             bgColor="brand.warningFade"
+                //             px="6px"
+                //             py="8px"
+                //             w="100%"
+                //             maxW="199px"
+                //             borderRadius="5px"
+                //             className="sofia"
+                //             mx="auto"
+                //             align="center"
+                //             justify="center"
+                //         >
+                //             <Box
+                //                 w="7px"
+                //                 h="7px"
+                //                 // display={"inline-block"}
+                //                 borderRadius={"full"}
+                //                 bgColor="brand.warning"
+                //                 mr="10px"
+                //             ></Box>
+                //             <Text>Paid & Awaiting Shipment </Text>
+                //         </Flex>
+                //     ) : (
+                //         ""
+                //     )}
+                // </> */}
+                    </>
+                    Not Available
+                </Box>
             );
         },
     },

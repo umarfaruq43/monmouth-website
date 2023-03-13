@@ -70,7 +70,7 @@ const CardDetails = () => {
                 <CardBox
                     color="#EDFBE8"
                     cardTitle="Total Revenue/month"
-                    numbers="$45,325.00"
+                    numbers="NIl"
                     link="#"
                     image="revenueIcon.svg"
                     brColor="#CDFABD"
@@ -78,7 +78,7 @@ const CardDetails = () => {
                 <CardBox
                     color="#F1EBFF"
                     cardTitle="Total Cards"
-                    numbers="3864"
+                    numbers="NIl"
                     link="#"
                     image="totalCard.svg"
                     brColor="#D8D2F7"
@@ -86,7 +86,7 @@ const CardDetails = () => {
                 <CardBox
                     color="#FFEFEB"
                     cardTitle="Sold Cards"
-                    numbers="1655"
+                    numbers="NIl"
                     link="#"
                     image="soldCards.svg"
                     brColor="#FFD4C7"
@@ -94,7 +94,7 @@ const CardDetails = () => {
                 <CardBox
                     color="#D9DFFF"
                     cardTitle="Pending Cards"
-                    numbers="3854"
+                    numbers="NIl"
                     link="#"
                     image="pending.svg"
                     brColor="#B7C2FF"

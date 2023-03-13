@@ -1,7 +1,17 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
+import { format } from "date-fns";
 import React from "react";
 
-const CardDetails = () => {
+const CardDetails = ({ currentCardDetails }) => {
+    const formatedYear = format(
+        new Date(currentCardDetails && currentCardDetails.year),
+        "yyyy"
+    );
+
+    const formatedDate = format(
+        new Date(currentCardDetails && currentCardDetails.year),
+        "yyyy-mm-dd"
+    );
     return (
         <Box>
             <Text fontWeight="700" my="8px" fontSize="24px" py="16px">
@@ -17,38 +27,38 @@ const CardDetails = () => {
                                 color="brand.lightBlack"
                                 bgColor={"brand.accent_1"}
                             >
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Estimated Value:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Card Year:
                                 </Text>
 
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Card Number:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Grade Number:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Grading Company:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Variety:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Certificate Number:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Purchase Date:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Stored in Vault?
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     changeOverWeekPercent:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     id:
                                 </Text>
                             </Box>
@@ -60,39 +70,57 @@ const CardDetails = () => {
                                 fontWeight="700"
                                 maxW="240px"
                             >
-                                <Text className="sofia" mb="14px">
-                                    $24.50
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {/* $24.50 */}
+                                    Not found
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    2021
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {formatedYear}
                                 </Text>
 
-                                <Text className="sofia" mb="14px">
-                                    19
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {(currentCardDetails.cardNumber &&
+                                        currentCardDetails.cardNumber) ||
+                                        "_ _"}
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    10
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {(currentCardDetails.gradeNumber &&
+                                        currentCardDetails.gradeNumber) ||
+                                        "_ _"}
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    SGC
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {(currentCardDetails.gradingCompany &&
+                                        currentCardDetails.gradingCompany) ||
+                                        "_ _"}
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    Asia Hyper Gold
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {(currentCardDetails.variety &&
+                                        currentCardDetails.variety) ||
+                                        "_ _"}
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     3273551
+                                    {(currentCardDetails.certNumber &&
+                                        currentCardDetails.certNumber) ||
+                                        "_ _"}
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    - -
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {(currentCardDetails.purchaseDate &&
+                                        currentCardDetails.purchaseDate) ||
+                                        "_ _"}
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    True
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    Not found
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    --
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {(currentCardDetails.changeOverWeekPercent &&
+                                        currentCardDetails.changeOverWeekPercent) ||
+                                        "_ _"}
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    7b9ab2a3-5286-435c-a6ee-52d8fcc73976
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {(currentCardDetails.id &&
+                                        currentCardDetails.id) ||
+                                        "_ _"}
                                 </Text>
                             </Box>
                         </Flex>
@@ -106,38 +134,40 @@ const CardDetails = () => {
                                 color="brand.lightBlack"
                                 bgColor={"brand.accent_1"}
                             >
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Brand:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     PrintRun:
                                 </Text>
 
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Date Added:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Serial Number:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Low Estimated Price:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     High Estimated Price:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Notes:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Subject:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Category:
                                 </Text>
-                                <Text className="sofia" mb="14px">
+                                <Text className="sofia" noOfLines={1} mb="14px">
                                     Cost
                                 </Text>
-                                <Text className="sofia">Title</Text>
+                                <Text className="sofia" noOfLines={1}>
+                                    Title
+                                </Text>
                             </Box>
 
                             <Box
@@ -147,40 +177,55 @@ const CardDetails = () => {
                                 fontWeight="700"
                                 maxW="240px"
                             >
-                                <Text className="sofia" mb="14px">
-                                    Elite
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {(currentCardDetails.brand &&
+                                        currentCardDetails.brand) ||
+                                        "_ _"}
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    --
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {(currentCardDetails.printRun &&
+                                        currentCardDetails.printRun) ||
+                                        "_ _"}
                                 </Text>
 
-                                <Text className="sofia" mb="14px">
-                                    2022-11-21
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {formatedDate}
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    --
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {(currentCardDetails.serial &&
+                                        currentCardDetails.serial) ||
+                                        "_ _"}
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    --
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    Not found
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    --
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    Not found
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    --
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {(currentCardDetails.notes &&
+                                        currentCardDetails.notes) ||
+                                        "_ _"}
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    Isaiah Stewart
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {(currentCardDetails.subject &&
+                                        currentCardDetails.subject) ||
+                                        "_ _"}
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    BASKETBALL_CARDS
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {(currentCardDetails.category &&
+                                        currentCardDetails.category) ||
+                                        "_ _"}
                                 </Text>
-                                <Text className="sofia" mb="14px">
-                                    --
+                                <Text className="sofia" noOfLines={1} mb="14px">
+                                    {(currentCardDetails.costBasis &&
+                                        currentCardDetails.costBasis) ||
+                                        "_ _"}
                                 </Text>
-                                <Text className="sofia">
-                                    2021 Elite #19 Isaiah Stewart Asia Hyper
-                                    Gold SGC 10
+                                <Text className="sofia" noOfLines={1}>
+                                    {(currentCardDetails.groupName &&
+                                        currentCardDetails.groupName) ||
+                                        "_ _"}
                                 </Text>
                             </Box>
                         </Flex>

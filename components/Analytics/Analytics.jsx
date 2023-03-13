@@ -18,14 +18,7 @@ const Analytics = () => {
                 </Box>
             </Flex>
 
-            <Text
-                fontWeight={"700"}
-                mb="32px"
-                color="brand.black"
-                fontSize={"24px"}
-            >
-                Offers
-            </Text>
+           
 
             <Box bg="brand.white" px="24px" py="16px">
                 <Text
