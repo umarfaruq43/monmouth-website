@@ -23,7 +23,7 @@ export default function App({ Component, pageProps }) {
             router.events.off("routeChangeComplete", handleRouteDone);
             router.events.off("routeChangeError", handleRouteDone);
         };
-    }, []);
+    }, []); //eslint-disable-line
     return (
         <ChakraProvider theme={theme}>
             <CSSReset />
