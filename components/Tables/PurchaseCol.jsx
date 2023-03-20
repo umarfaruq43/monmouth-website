@@ -38,7 +38,7 @@ export const PurchaseCol = [
                             />
                         </Box>
                     ) : (
-                    "Image Nil"
+                        "Image Nil"
                     )}
                 </>
             );
@@ -50,7 +50,7 @@ export const PurchaseCol = [
         Cell: (values) => {
             return (
                 <Box>
-                    {values && values.row.original.cardName ? (
+                    {values && values.row.original.line_items ? (
                         <Text
                             w="100%"
                             fontWeight="600"
@@ -62,7 +62,7 @@ export const PurchaseCol = [
                             maxW="250px"
                             overflow={"clip"}
                         >
-                            {values.row.original.card_title}
+                            {values.row.original.line_items[0].name}
                         </Text>
                     ) : (
                         "Card Name Nil"
@@ -74,11 +74,11 @@ export const PurchaseCol = [
 
     {
         Header: "DATE ADDED",
-        accessor: "date",
+        accessor: "created_at",
         Cell: (values) => {
             return format(
                 new Date(values.row.original.created_at),
-                "yyyy-mm-dd"
+                "yyyy-MM-dd"
             );
         },
     },
@@ -87,7 +87,6 @@ export const PurchaseCol = [
         Header: "CUSTOMER NAME",
         accessor: "name",
         Cell: (values) => {
-            console.log(values);
             return (
                 <Box>
                     {values && values.row.original ? (
@@ -99,6 +98,7 @@ export const PurchaseCol = [
                             className="sofia"
                             cursor="pointer"
                             noOfLines={1}
+                            
                         >
                             {values.row.original.customer
                                 ? values.row.original.customer.first_name
@@ -126,7 +126,7 @@ export const PurchaseCol = [
                         color="brand.success"
                         textAlign="center"
                     >
-                        ${values.row.original.total_price}
+                        ${values.row.original.current_total_price}
                     </Text>
                 </>
             );

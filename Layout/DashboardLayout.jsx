@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import {
     IconButton,
     Avatar,
@@ -47,7 +47,7 @@ import { MdNoteAlt } from "react-icons/md";
 import { NextLink } from "next/link";
 import { BiLogOut } from "react-icons/bi";
 import NavNotification from "../components/NavNotification";
-import { useAuthContext } from "../Contexts/AuthContext";
+import AuthContext, { useAuthContext } from "../Contexts/AuthContext";
 
 const LinkItems = [
     { name: "Dashboard", icon: FaEnvelopeOpen, active: "/" },
@@ -154,7 +154,7 @@ const SidebarContent = ({ onClose, passedActive, ...rest }) => {
 
 const NavItem = ({ icon, children, link, passedActive, ...rest }) => {
     const router = useRouter();
-    
+
     const { Logout } = useAuthContext();
     return (
         <Link
@@ -216,6 +216,16 @@ const NavItem = ({ icon, children, link, passedActive, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
+    // const { userData } = useAuthContext();
+    const [userData, setUserData] = useState(null);
+    useEffect(() => {
+        localStorage.setItem("for", "rt");
+
+        const mainDetails = JSON.parse(localStorage.getItem("adminDetails"));
+        mainDetails && setUserData(mainDetails);
+    }, []);
+    const letter = userData && userData.fullName.split("")[0];
+
     return (
         <Flex
             ml={{ base: 0, md: 60 }}
@@ -282,12 +292,38 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 <Flex alignItems={"center"}>
                     <Menu>
                         <HStack>
-                            <Avatar
-                                size={"sm"}
-                                src={
-                                    "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                                }
-                            />
+                            <Flex
+                                alignItems="center"
+                                justifyContent={"center"}
+                                minW="50px"
+                                minH="50px"
+                                maxW="50px"
+                                maxH="50px"
+                                borderRadius={"full"}
+                                overflow="hidden"
+                                bgColor={"#f9fafb"}
+                            >
+                                {/* */}
+                                {userData &&
+                                userData.profilePhoto &&
+                                userData.profilePhoto.imageUrl !== "" ? (
+                                    <Image
+                                        src={
+                                            userData.profilePhoto &&
+                                            userData.profilePhoto.imageUrl
+                                        }
+                                        borderRadius={"full"}
+                                        w="46px"
+                                        h="46px"
+                                        alt=""
+                                    />
+                                ) : (
+                                    <Text fontSize={"30px"} fontWeight={700}>
+                                        {" "}
+                                        {letter}{" "}
+                                    </Text>
+                                )}
+                            </Flex>
                             <VStack
                                 display={{ base: "none", md: "flex" }}
                                 alignItems="flex-start"
@@ -299,14 +335,18 @@ const MobileNav = ({ onOpen, ...rest }) => {
                                     fontWeight={600}
                                     color="brand.black"
                                 >
-                                    Tiamiyu Mubarak
+                                    {userData && userData
+                                        ? userData.fullName
+                                        : "No Name"}
                                 </Text>
                                 <Text
                                     fontSize="14px"
                                     color="brand.lighterGray"
                                     className="sofia"
                                 >
-                                    Admin
+                                    {userData && userData
+                                        ? userData.role
+                                        : "No Status"}
                                 </Text>
                             </VStack>
                         </HStack>

@@ -22,7 +22,11 @@ const CardBox = ({ color, cardTitle, numbers, link, brColor, image }) => {
             borderRadius={"8px"}
         >
             <Box>
-                <Image src={`/dashboard/${image}`} alt="" _hover={{color:"red"}} />
+                <Image
+                    src={`/dashboard/${image}`}
+                    alt=""
+                    _hover={{ color: "red" }}
+                />
                 <Text
                     pt="16px"
                     fontSize={"14px"}
@@ -58,7 +62,7 @@ const CardBox = ({ color, cardTitle, numbers, link, brColor, image }) => {
     );
 };
 
-const CardDetails = () => {
+const CardDetails = ({ TotalCardNo, pendingCardNo, soldCardNo }) => {
     return (
         <Box>
             <SimpleGrid
@@ -78,7 +82,7 @@ const CardDetails = () => {
                 <CardBox
                     color="#F1EBFF"
                     cardTitle="Total Cards"
-                    numbers="NIl"
+                    numbers={TotalCardNo && TotalCardNo}
                     link="#"
                     image="totalCard.svg"
                     brColor="#D8D2F7"
@@ -86,7 +90,7 @@ const CardDetails = () => {
                 <CardBox
                     color="#FFEFEB"
                     cardTitle="Sold Cards"
-                    numbers="NIl"
+                    numbers={soldCardNo && soldCardNo}
                     link="#"
                     image="soldCards.svg"
                     brColor="#FFD4C7"
@@ -94,7 +98,7 @@ const CardDetails = () => {
                 <CardBox
                     color="#D9DFFF"
                     cardTitle="Pending Cards"
-                    numbers="NIl"
+                    numbers={pendingCardNo}
                     link="#"
                     image="pending.svg"
                     brColor="#B7C2FF"

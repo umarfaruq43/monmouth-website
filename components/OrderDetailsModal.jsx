@@ -41,7 +41,11 @@ const OrderDetailsModal = ({ isOpen, onOpen, onClose, details }) => {
                                 <Flex align="center">
                                     <Flex maxW="361px" gap="16px">
                                         <Image
-                                            src={details && details.image ? "" : ""}
+                                            src={
+                                                details && details.image
+                                                    ? ""
+                                                    : ""
+                                            }
                                             alt={`${
                                                 details && details.title
                                             } image`}
@@ -60,8 +64,8 @@ const OrderDetailsModal = ({ isOpen, onOpen, onClose, details }) => {
                                             className="sofia"
                                             noOfLines={2}
                                         >
-                                            {details.card_title 
-                                                ? details.card_title
+                                            {details.line_items
+                                                ? details.line_items[0].name
                                                 : "Name of Card Not available"}
                                         </Text>
                                     </Flex>
@@ -319,7 +323,8 @@ const OrderDetailsModal = ({ isOpen, onOpen, onClose, details }) => {
                                         className="sofia"
                                         fontSize="24px"
                                     >
-                                        ${details && details.subtotal_price}
+                                        $
+                                        {details && details.current_total_price}
                                     </Text>
                                 </Flex>
                             </Box>

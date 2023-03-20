@@ -3,15 +3,16 @@ import { format } from "date-fns";
 import React from "react";
 
 const CardDetails = ({ currentCardDetails }) => {
-    const formatedYear = format(
-        new Date(currentCardDetails && currentCardDetails.year),
-        "yyyy"
-    );
+    const formatedYear =
+        currentCardDetails &&
+        format(new Date(currentCardDetails && currentCardDetails.year), "yyyy");
 
-    const formatedDate = format(
-        new Date(currentCardDetails && currentCardDetails.year),
-        "yyyy-mm-dd"
-    );
+    const formatedDate =
+        currentCardDetails &&
+        format(
+            new Date(currentCardDetails && currentCardDetails.year),
+            "yyyy-mm-dd"
+        );
     return (
         <Box>
             <Text fontWeight="700" my="8px" fontSize="24px" py="16px">

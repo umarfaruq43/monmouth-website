@@ -6,8 +6,8 @@ import Shopify from "./Shopify";
 import Walmart from "./Walmart";
 
 const CardIllustaration = ({ cardDetails }) => {
-    const img = cardDetails && cardDetails.images.split(",");
-    console.log(img);
+    const img = cardDetails.images && cardDetails.images.split(",");
+    console.log("cardDetails", cardDetails);
     return (
         <Box>
             <Flex flexDir={["column", , "row"]} gap="26px">
@@ -62,17 +62,20 @@ const CardIllustaration = ({ cardDetails }) => {
                             {cardDetails && cardDetails.groupName}
                         </Text>
                         <Box>
-                            {true ? (
+                            {cardDetails.status === "pending" ? (
                                 <Button
                                     color="brand.grey_1"
                                     _readOnly={true}
                                     px="31px"
                                     py="8px"
                                 >
-                                    {/* Pending */}
-                                    Feature not available
+                                    {cardDetails && cardDetails.status}
                                 </Button>
                             ) : (
+                                ""
+                            )}
+
+                            {cardDetails.status === "sold" ? (
                                 <Button
                                     color="brand.success"
                                     bgColor="brand.lightSuccess"
@@ -82,6 +85,22 @@ const CardIllustaration = ({ cardDetails }) => {
                                 >
                                     Sold
                                 </Button>
+                            ) : (
+                                ""
+                            )}
+
+                            {cardDetails.status === "listed for sale" ? (
+                                <Button
+                                    color="brand.success"
+                                    bgColor="brand.lightSuccess"
+                                    _readOnly={true}
+                                    px="31px"
+                                    py="8px"
+                                >
+                                    listed for sale
+                                </Button>
+                            ) : (
+                                ""
                             )}
                         </Box>
                     </Flex>

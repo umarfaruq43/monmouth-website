@@ -3,12 +3,15 @@ import React, { useState } from "react";
 import { FiTag } from "react-icons/fi";
 import { CustomToast } from "../Alert";
 
-const Shopify = ({ value }) => {
-    const { success } = CustomToast();
+const Shopify = ({ currentCardDetails, value }) => {
+    // console.log("value", currentCardDetails);
+    const { success, error } = CustomToast();
 
-    value = "25.00";
+    // value = currentCardDetails ?  : "00.00";
     const [isLoading, setIsLoading] = useState(false);
-    const [updatePrice, setUpdatePrice] = useState(value);
+    const [updatePrice, setUpdatePrice] = useState(
+        currentCardDetails.price || "0.00"
+    );
     const [edit, setEdit] = useState(false);
     const handleChange = (e) => {
         setUpdatePrice(e.target.value);
@@ -18,15 +21,56 @@ const Shopify = ({ value }) => {
             setEdit(!edit);
         }
     };
-    const handleSave = () => {
-        if (confirm("Are you sure you want to save the new price?")) {
-            setIsLoading(!isLoading);
-            setTimeout(() => {
-                setEdit(!edit);
+
+    const editShopifyPrice = (cardId) => {
+        const editedValues = {
+            cardPrice: updatePrice,
+            marketPlace: "shopify",
+        };
+        console.log("editedValues", editedValues);
+        console.log("cardId", cardId);
+        // Get the user bearer token
+        const userToken = localStorage.getItem("token");
+
+        const handleSuccessFullSignIn = (data) => {
+            setEdit(!edit);
+            setIsLoading(false);
+            success({ title: data && data.message });
+        };
+
+        setIsLoading(true);
+        fetch(`https://monmouth.onrender.com/v1/card/edit-price/${cardId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorisation: "Bearer " + userToken,
+            },
+            body: JSON.stringify(editedValues),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                // console.log(data);
+
+                data && data.success
+                    ? handleSuccessFullSignIn(data)
+                    : error({ title: data && data.message });
+
                 setIsLoading(false);
-                success({ title: "Shopify Price Updated" });
-            }, 2000);
-        }
+            })
+            .catch((err) => {
+                error({ title: err && err });
+                setIsLoading(false);
+            });
+    };
+
+    const handleSave = () => {
+        // if (confirm("Are you sure you want to save the new price?")) {
+        //     setIsLoading(!isLoading);
+        //     setTimeout(() => {
+        //
+        //     }, 2000);
+        // }
+        editShopifyPrice(currentCardDetails && currentCardDetails._id);
     };
     return (
         <Box>
@@ -57,6 +101,7 @@ const Shopify = ({ value }) => {
                     readOnly={edit ? false : true}
                     pt="8px"
                     pr="0"
+                    type="number"
                     bgColor={edit ? "brand.thickGray" : "transparent"}
                     border={edit ? "1px" : "none"}
                     fontWeight="700"

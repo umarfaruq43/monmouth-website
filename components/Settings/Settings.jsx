@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Icon, Image, Link, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NextLink from "next/link";
 import { HiUser } from "react-icons/hi";
 
@@ -122,6 +122,15 @@ const Settings = () => {
 export default Settings;
 
 const UserLabel = ({ img }) => {
+    const [userData, setUserData] = useState(null);
+    useEffect(() => {
+        localStorage.setItem("for", "rt");
+
+        const mainDetails = JSON.parse(localStorage.getItem("adminDetails"));
+        mainDetails && setUserData(mainDetails);
+    }, []);
+    const letter = userData && userData.fullName.split("")[0];
+
     return (
         <Box
             boxShadow="0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05)"
@@ -131,20 +140,48 @@ const UserLabel = ({ img }) => {
         >
             <Flex gap="18px" justify={"space-between"} align="center">
                 <Flex gap="18px">
-                    <Image
-                        src="/user.png"
+                    <Flex
+                        alignItems="center"
+                        justifyContent={"center"}
+                        minW="50px"
+                        minH="50px"
+                        maxW="50px"
+                        maxH="50px"
                         borderRadius={"full"}
-                        w="46px"
-                        h="46px"
-                        alt=""
-                    />
+                        overflow="hidden"
+                        bgColor={"#f9fafb"}
+                    >
+                        {/* */}
+                        {userData &&
+                        userData.profilePhoto &&
+                        userData.profilePhoto.imageUrl !== "" ? (
+                            <Image
+                                src={
+                                    userData.profilePhoto &&
+                                    userData.profilePhoto.imageUrl
+                                }
+                                borderRadius={"full"}
+                                w="46px"
+                                h="46px"
+                                alt=""
+                            />
+                        ) : (
+                            <Text fontSize={"30px"} fontWeight={700}>
+                                {" "}
+                                {letter}{" "}
+                            </Text>
+                        )}
+                    </Flex>
+
                     <Box>
                         <Text
                             fontSize={["16px"]}
                             fontWeight={[600]}
                             color="brand.black"
                         >
-                            Tiamiyu Mubarak
+                            {userData && userData
+                                ? userData.fullName
+                                : "No Name"}
                         </Text>
                         <Text
                             fontSize="14px"

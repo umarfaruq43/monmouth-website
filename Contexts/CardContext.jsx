@@ -32,7 +32,7 @@ const FetchCards = () => {
         // Set the API endpoint URL
         const url = `https://monmouth.onrender.com/v1/card/get-cards?page=${1}&limit=${5}`;
 
-        // Set the user bearer token
+        // Get the user bearer token
         const userToken = localStorage.getItem("token");
 
         // Set the headers with the user token
@@ -50,12 +50,8 @@ const FetchCards = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log("fetching start");
                 setFetching(false);
-                console.log(data);
                 setCards(data && data.data);
-                console.log("cards In State ", cards);
-                console.log("fetching ends");
             })
             .catch((error) => {
                 console.error(
@@ -70,7 +66,7 @@ const FetchCards = () => {
         // Set the API endpoint URL
         const url = `https://monmouth.onrender.com/v1/card/get-cards`;
 
-        // Set the user bearer token
+        // Get the user bearer token
         const userToken = localStorage.getItem("token");
 
         // Set the headers with the user token
@@ -90,22 +86,24 @@ const FetchCards = () => {
             .then((data) => {
                 console.log("fetching start");
                 setFetching(false);
-                console.log(data);
+                console.log("allCards_", data);
                 setAllCards(data && data.data);
-                console.log("cards In State ", cards);
+                console.log("cards In State ", allCards);
                 console.log("fetching ends");
             })
             .catch((err) => {
                 error({
                     title: "There was a problem with the fetch operation, Please Refresh",
                 });
-                console.err(
+                console.log(
                     "There was a problem with the fetch operation:",
                     err
                 );
                 setFetching(false);
             });
     };
+
+   
 
     return { fetchRecentCards, cards, fetching, allCards };
 };

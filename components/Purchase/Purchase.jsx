@@ -12,24 +12,111 @@ import {
     Text,
     useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { FaChevronDown } from "react-icons/fa";
 import PurchaseTable from "../Tables/PurchaseTable";
 import { purchase_details } from "../purchaseData";
 import Offerdrawer from "../Offers/Offerdrawer";
 const Purchase = () => {
+    const [loading, setLoading] = useState(false);
+    const [purchaseDetails, setPurchaseDetails] = useState([]);
+
+    useEffect(() => {
+        const fetchShopifyOrders = () => {
+            // Set the API endpoint URL
+            const url = `https://monmouth.onrender.com/v1/card/get-shopify-orders`;
+
+            // Get the user bearer token
+            const userToken = localStorage.getItem("token");
+
+            // Set the headers with the user token
+            const headers = {
+                Authorisation: "Bearer " + userToken,
+                mode: "no-cors",
+                "X-Shopify-Access-Token":
+                    "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",
+            };
+            // set fetching true
+            setLoading(true);
+            console.log(" fetching");
+
+            // Fetch the data with the headers
+            fetch(url, {
+                method: "GET",
+                headers: headers,
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setLoading(false);
+                    console.log("Done fetching");
+
+                    console.log("Purchases", data && data);
+                    setPurchaseDetails(data && data.data);
+                })
+                .catch((error) => {
+                    console.error(
+                        "There was a problem with the fetch operation:",
+                        error
+                    );
+                    setLoading(false);
+                });
+        };
+
+        const fetchEbayOrders = () => {
+            // Set the API endpoint URL
+            const url = `https://monmouth.onrender.com/v1/card/get-ebay-orders`;
+
+            // Get the user bearer token
+            const userToken = localStorage.getItem("token");
+
+            // Set the headers with the user token
+            const headers = {
+                Authorisation: "Bearer " + userToken,
+                mode: "no-cors",
+                "X-Shopify-Access-Token":
+                    "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",
+            };
+            // set fetching true
+            setLoading(true);
+            console.log(" fetching");
+
+            // Fetch the data with the headers
+            fetch(url, {
+                method: "GET",
+                headers: headers,
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setLoading(false);
+                    console.log("Done fetching");
+
+                    console.log("Purchases", data && data);
+                    setPurchaseDetails(data && data.data);
+                })
+                .catch((error) => {
+                    console.error(
+                        "There was a problem with the fetch operation:",
+                        error
+                    );
+                    setLoading(false);
+                });
+        };
+
+        fetchShopifyOrders();
+        fetchEbayOrders();
+    }, []);
+
     const [filter, setFilter] = useState("All Purchases");
-    
 
     let allPurchases = purchase_details;
     let success = purchase_details.filter((item) => item.status === "success");
 
-    let delay = purchase_details.filter((item) => item.status === "delay");
+    // let delay = purchase_details.filter((item) => item.status === "delay");
 
-    let unpaid = purchase_details.filter((item) => item.status === "unpaid");
+    // let unpaid = purchase_details.filter((item) => item.status === "unpaid");
 
-    let pending = purchase_details.filter((item) => item.status === "pending");
+    // let pending = purchase_details.filter((item) => item.status === "pending");
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
@@ -131,12 +218,18 @@ const Purchase = () => {
             </Flex>
             {/* *** The Header End *** */}
             <Box>
-                {filter === "All Purchases" ? (
-                    <PurchaseTable purchase_details={allPurchases} />
+                {loading
+                    ? "Loading data...."
+                    : purchaseDetails && (
+                          <PurchaseTable purchase_details={purchaseDetails} />
+                      )}
+
+                {/* {filter === "All Purchases" ? (
+                    <PurchaseTable purchase_details={purchase_details} />
                 ) : (
                     ""
-                )}
-
+                )} */}
+                {/* 
                 {filter == "Paid & Shipped" ? (
                     <PurchaseTable purchase_details={success} />
                 ) : (
@@ -159,7 +252,7 @@ const Purchase = () => {
                     <PurchaseTable purchase_details={pending} />
                 ) : (
                     ""
-                )}
+                )} */}
             </Box>
         </Box>
     );

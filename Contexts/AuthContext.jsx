@@ -12,15 +12,19 @@ export default function AuthContext({ children }) {
     const [user, setUser] = useState(false);
     const [reset, setReset] = useState(false);
     const [loading, setLoading] = useState(false);
-    
+    const [userData, setUserData] = useState(null);
 
     // Signin function
     const signIn = (values) => {
         const handleSuccessFullSignIn = (data) => {
             success({ title: data && data.message });
             setLoading(false);
+            setUserData(data && data.data.admin);
             localStorage.setItem("token", data && data.data.accessToken);
-            localStorage.setItem("adminDetails", data && data.data.admin);
+            localStorage.setItem(
+                "adminDetails",
+                data && JSON.stringify(data.data.admin)
+            );
             navigate.push("/");
         };
         setLoading(true);
@@ -184,10 +188,9 @@ export default function AuthContext({ children }) {
             });
     };
 
- 
-
     const Logout = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("userDetails");
         navigate.push("/auth/login");
     };
 
@@ -204,7 +207,7 @@ export default function AuthContext({ children }) {
         reset,
         setReset,
         Logout,
-      
+        userData,
     };
     return <Auth.Provider value={authValues}>{children}</Auth.Provider>;
 }

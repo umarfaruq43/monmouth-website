@@ -7,13 +7,16 @@ import { cards } from "../../cards";
 import { CardContext } from "../../Contexts/CardContext";
 
 const Card = () => {
-    let soldCard = [];
-    let pendingCard = [];
-    let listedCard = [];
-
     const [active, setActive] = useState(1);
     const { allCards } = useContext(CardContext);
-
+    let soldCard =
+        allCards && allCards.filter((item) => item.status === "sold");
+    let pendingCard =
+        allCards && allCards.filter((item) => item.status === "pending");
+    let listedCard =
+        allCards &&
+        allCards.filter((item) => item.status === "listed for sale");
+    console.log("All Cards", allCards);
     return (
         <Box>
             <Flex align="center" mb="24px" justify="space-between">
@@ -198,7 +201,7 @@ const Card = () => {
                     <TabPanels p="24px" bgColor="brand.white">
                         <TabPanel>
                             {/* All cards */}
-                            <Pagination cards={allCards && allCards} />
+                            <Pagination cards={allCards} />
                         </TabPanel>
                         <TabPanel>
                             {/* Listed  cards */}
@@ -214,8 +217,7 @@ const Card = () => {
 
                         <TabPanel>
                             {/* Pending cards */}
-
-                            <Pagination cards={pendingCard} />
+                            {pendingCard && <Pagination cards={pendingCard} />}
                         </TabPanel>
                     </TabPanels>
                 </Tabs>

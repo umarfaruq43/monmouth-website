@@ -18,28 +18,28 @@ export const COLUMN = [
     {
         Header: "",
         accessor: "images",
-        Cell: (values) => {
-            const img = values && values.row.original.images.split(",");
-            console.log("image", img);
-            return (
-                <Box cursor={"pointer"}>
-                    {values && values.row.original.images ? (
-                        <Image
-                            src={values && img[0]}
-                            alt=""
-                            w="48px"
-                            h="48px"
-                            minW="48px"
-                            borderRadius={"10px"}
-                            cursor="pointer"
-                            objectFit={"cover"}
-                        />
-                    ) : (
-                        "- -"
-                    )}
-                </Box>
-            );
-        },
+        // Cell: (values) => {
+        //     const img = values && values.row.original.images.split(",");
+        //     console.log("image", img);
+        //     return (
+        //         <Box cursor={"pointer"}>
+        //             {values && values.row.original.images ? (
+        //                 <Image
+        //                     src={values && img[0]}
+        //                     alt=""
+        //                     w="48px"
+        //                     h="48px"
+        //                     minW="48px"
+        //                     borderRadius={"10px"}
+        //                     cursor="pointer"
+        //                     objectFit={"cover"}
+        //                 />
+        //             ) : (
+        //                 "- -"
+        //             )}
+        //         </Box>
+        //     );
+        // },
     },
     {
         Header: "TITLE",
@@ -182,9 +182,10 @@ export const COLUMN = [
         Header: "STATUS",
         accessor: "status",
         Cell: (values) => {
+            
             return (
                 <>
-                    {values && values.row.original.status !== true ? (
+                    {values && values.row.original.status === "" ? (
                         <Text
                             fontWeight={"400"}
                             className="sofia"
@@ -195,7 +196,7 @@ export const COLUMN = [
                     ) : (
                         ""
                     )}
-                    {values && values.row.original.status === true ? (
+                    {values && values.row.original.status === "sold" ? (
                         <Text
                             fontWeight={"600"}
                             color="brand.success"
@@ -212,7 +213,8 @@ export const COLUMN = [
                     ) : (
                         ""
                     )}
-                    {values && values.row.original.status === false ? (
+                    {values &&
+                    values.row.original.status === "listed for sale" ? (
                         <Text
                             fontWeight={"600"}
                             color="brand.primaryBase"
@@ -225,6 +227,24 @@ export const COLUMN = [
                             mx="auto"
                         >
                             Listed for Sale
+                        </Text>
+                    ) : (
+                        ""
+                    )}
+
+                    {values && values.row.original.status === "pending" ? (
+                        <Text
+                            fontWeight={"600"}
+                            color="brand.primaryBase"
+                            bgColor="brand.light_1"
+                            px="16px"
+                            py="8px"
+                            w="fit-content"
+                            borderRadius="5px"
+                            className="sofia"
+                            mx="auto"
+                        >
+                            Pending
                         </Text>
                     ) : (
                         ""

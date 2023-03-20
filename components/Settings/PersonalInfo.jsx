@@ -10,13 +10,20 @@ import {
     Button,
     Spinner,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { BiEditAlt } from "react-icons/bi";
 import { CustomToast } from "../Alert";
 const PersonalInfo = () => {
+    const [userData, setUserData] = useState(null);
+
+    useEffect(() => {
+        const mainDetails = JSON.parse(localStorage.getItem("adminDetails"));
+        mainDetails && setUserData(mainDetails);
+    }, []);
+
     const initialData = {
-        fName: "Tiamiyu",
+        fName: "dfdfkjsafds",
         lName: "Mubarak ",
         email: "almubaarak.dev@gmail.com",
         phone: "09021284572",
@@ -71,7 +78,7 @@ const PersonalInfo = () => {
     const handleEdit = () => {
         setEdit(true);
     };
-
+    console.log(initialData);
     return (
         <Box mt="44px" mb="24px">
             <Box>
